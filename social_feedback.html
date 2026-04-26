@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORYN Social Feedback - Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --accent:#05a09d; --accent2:#789e07;
+            --white:#fff; --glass:rgba(255,255,255,0.05);
+            --border:rgba(255,255,255,0.1); --muted:rgba(255,255,255,0.68);
+            --green:#22C55E; --red:#EF4444;
+        }
+        body { font-family:'Inter',sans-serif; background:linear-gradient(135deg,#0a0a0a,#0f0d08,#0a0a0a); color:var(--white); line-height:1.6; }
+
+        header { background:rgba(255,255,255,0.04); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:1000; }
+        nav { max-width:1400px; margin:0 auto; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; }
+        .logo-section { display:flex; align-items:center; gap:1rem; }
+        .campus-logo { height:55px; object-fit:contain; filter:drop-shadow(0 2px 8px rgba(245,158,11,0.4)); }
+        .brand-name { font-size:1.6rem; font-weight:800; color:var(--white); text-decoration:none; }
+        .brand-name span { color:var(--accent); }
+        .btn-back { padding:.7rem 1.5rem; background:rgba(245,158,11,0.15); color:var(--accent); border:2px solid var(--accent); border-radius:50px; font-weight:600; text-decoration:none; transition:all .3s; }
+        .btn-back:hover { background:var(--accent); color:#000; transform:translateY(-2px); }
+
+        .hero-slideshow { position:relative; height:600px; overflow:hidden; background:#000; }
+        .slide { position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; transition:opacity 1.5s ease-in-out; }
+        .slide.active { opacity:1; }
+        .slide img { width:100%; height:100%; object-fit:cover; filter:brightness(.65); }
+        .slide-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(0,0,0,.75),rgba(245,158,11,.22)); display:flex; align-items:center; justify-content:center; }
+        .hero-content { text-align:center; color:var(--white); max-width:900px; padding:2rem; animation:slideUp 1s ease-out; }
+        @keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+        .hero-content h1 { font-size:4rem; font-weight:800; margin-bottom:1rem; text-shadow:0 4px 20px rgba(0,0,0,.5); line-height:1.1; }
+        .hero-content p { font-size:1.3rem; margin-bottom:2rem; opacity:.95; }
+        .cta-btns { display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; }
+        .cta-btn { padding:1.1rem 2.8rem; font-weight:700; border-radius:50px; text-decoration:none; transition:all .3s; font-size:1rem; border:2px solid transparent; cursor:pointer; font-family:'Inter',sans-serif; }
+        .cta-btn.primary { background:var(--accent); color:#000; border-color:var(--accent); }
+        .cta-btn.primary:hover { background:transparent; color:var(--accent); transform:translateY(-3px); box-shadow:0 8px 25px rgba(245,158,11,.4); }
+        .cta-btn.secondary { background:transparent; color:var(--white); border-color:var(--white); }
+        .cta-btn.secondary:hover { background:var(--white); color:#000; transform:translateY(-3px); }
+        .slide-dots { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; gap:.75rem; z-index:10; }
+        .dot { width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,.4); cursor:pointer; transition:all .3s; border:1px solid rgba(255,255,255,.3); }
+        .dot.active { background:var(--accent); width:35px; border-radius:6px; box-shadow:0 2px 15px rgba(245,158,11,.6); }
+
+        .container { max-width:1400px; margin:0 auto; padding:4rem 2rem; }
+        .section-title { text-align:center; font-size:2.8rem; font-weight:800; color:var(--white); margin-bottom:.75rem; }
+        .section-title span { color:var(--accent); }
+        .section-sub { text-align:center; color:var(--muted); font-size:1.05rem; margin-bottom:3rem; }
+
+        .rating-overview { background:var(--glass); backdrop-filter:blur(20px); border-radius:24px; padding:3rem; border:1px solid var(--border); margin-bottom:4rem; display:grid; grid-template-columns:200px 1fr; gap:3rem; align-items:center; }
+        .big-rating { text-align:center; }
+        .big-num { font-size:5rem; font-weight:800; color:var(--accent); line-height:1; }
+        .stars-row { display:flex; justify-content:center; gap:.3rem; margin:.6rem 0; }
+        .star-filled { width:22px; height:22px; background:var(--accent); clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
+        .star-half { width:22px; height:22px; background:linear-gradient(90deg,var(--accent) 50%,rgba(255,255,255,.2) 50%); clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
+        .total-reviews { color:var(--muted); font-size:.9rem; }
+        .bar-row { display:flex; align-items:center; gap:1rem; margin-bottom:.75rem; }
+        .bar-label { color:var(--muted); font-size:.9rem; width:40px; text-align:right; }
+        .bar-track { flex:1; height:10px; background:rgba(255,255,255,.1); border-radius:5px; overflow:hidden; }
+        .bar-fill { height:100%; background:var(--accent); border-radius:5px; transition:width .8s ease; }
+        .bar-count { color:var(--muted); font-size:.85rem; width:30px; }
+
+        .review-form { background:var(--glass); backdrop-filter:blur(20px); border-radius:24px; padding:3rem; border:1px solid var(--border); max-width:720px; margin:0 auto 4rem; }
+        .review-form h3 { font-size:1.8rem; font-weight:800; color:var(--white); margin-bottom:.4rem; }
+        .review-form .sub-text { color:var(--muted); font-size:.95rem; margin-bottom:2rem; line-height:1.6; }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+        .form-group { margin-bottom:1.5rem; }
+        .form-group label { display:block; color:var(--white); font-weight:600; margin-bottom:.5rem; font-size:.95rem; }
+        .form-ctrl { width:100%; padding:1rem; background:rgba(255,255,255,.08); border:2px solid var(--border); border-radius:12px; color:var(--white); font-size:1rem; font-family:'Inter',sans-serif; transition:all .3s; }
+        .form-ctrl::placeholder { color:rgba(255,255,255,.38); }
+        .form-ctrl:focus { outline:none; border-color:var(--accent); background:rgba(255,255,255,.11); }
+        .form-ctrl option { background:#1a1a1a; }
+        textarea.form-ctrl { resize:vertical; min-height:110px; }
+
+        .star-picker { display:flex; gap:.5rem; margin:.5rem 0; }
+        .star-btn { width:36px; height:36px; background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.15); border-radius:8px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .25s; font-size:.85rem; font-weight:800; color:var(--muted); }
+        .star-btn.on { background:rgba(245,158,11,.25); border-color:var(--accent); color:var(--accent); }
+        .star-btn:hover { border-color:var(--accent); color:var(--accent); }
+
+        .btn-submit { width:100%; padding:1.2rem; background:var(--accent); color:#000; border:none; border-radius:12px; font-weight:700; font-size:1.05rem; cursor:pointer; transition:all .3s; font-family:'Inter',sans-serif; }
+        .btn-submit:hover { background:var(--accent2); transform:translateY(-2px); box-shadow:0 6px 25px rgba(245,158,11,.5); }
+
+        .opinion-box { background:var(--glass); backdrop-filter:blur(20px); border-radius:24px; padding:3rem; border:1px solid var(--border); max-width:720px; margin:0 auto 4rem; }
+        .opinion-box h3 { font-size:1.8rem; font-weight:800; color:var(--white); margin-bottom:.4rem; }
+        .opinion-box .sub-text { color:var(--muted); font-size:.95rem; margin-bottom:2rem; line-height:1.6; }
+        .opinion-type-row { display:flex; gap:.75rem; margin-bottom:1.5rem; flex-wrap:wrap; }
+        .opinion-type-btn { padding:.65rem 1.4rem; background:rgba(255,255,255,.07); border:2px solid rgba(255,255,255,.15); color:var(--muted); border-radius:50px; font-weight:600; font-size:.88rem; cursor:pointer; transition:all .3s; font-family:'Inter',sans-serif; }
+        .opinion-type-btn.selected { background:rgba(245,158,11,.2); border-color:var(--accent); color:var(--accent); }
+        .opinion-type-btn:hover { border-color:var(--accent); color:var(--accent); }
+        .btn-submit-opinion { width:100%; padding:1.2rem; background:rgba(245,158,11,.15); color:var(--accent); border:2px solid var(--accent); border-radius:12px; font-weight:700; font-size:1.05rem; cursor:pointer; transition:all .3s; font-family:'Inter',sans-serif; }
+        .btn-submit-opinion:hover { background:var(--accent); color:#000; transform:translateY(-2px); box-shadow:0 6px 25px rgba(245,158,11,.5); }
+
+        .toast { display:none; position:fixed; top:80px; right:20px; background:var(--accent); color:#000; padding:1rem 1.5rem; border-radius:12px; font-weight:700; z-index:9999; box-shadow:0 4px 20px rgba(245,158,11,.5); }
+        .toast.show { display:block; animation:toastIn .3s ease; }
+        @keyframes toastIn { from{opacity:0;transform:translateX(60px)} to{opacity:1;transform:translateX(0)} }
+
+        footer { background:rgba(0,0,0,.8); backdrop-filter:blur(20px); padding:3rem 2rem 1.5rem; border-top:1px solid var(--border); margin-top:2rem; }
+        .footer-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2rem; margin-bottom:2rem; }
+        .fs h3 { color:var(--accent); margin-bottom:1rem; font-size:1rem; }
+        .fs ul { list-style:none; }
+        .fs ul li,.fs a { color:var(--muted); text-decoration:none; display:block; margin-bottom:.5rem; font-size:.9rem; transition:color .3s; }
+        .fs a:hover { color:var(--accent); }
+        .footer-bottom { text-align:center; padding-top:2rem; border-top:1px solid var(--border); color:var(--muted); font-size:.85rem; }
+        .footer-bottom a { color:var(--accent); text-decoration:none; }
+
+        @media(max-width:768px) { .hero-content h1{font-size:2.5rem;} .hero-slideshow{height:450px;} .cta-btns{flex-direction:column;align-items:center;} .section-title{font-size:2rem;} .rating-overview{grid-template-columns:1fr;text-align:center;} .form-row{grid-template-columns:1fr;} }
+        ::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:rgba(255,255,255,.04);} ::-webkit-scrollbar-thumb{background:rgba(245,158,11,.5);border-radius:3px;}
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo-section">
+            <img src="LOGO.jpg" alt="ORYN Logo" class="campus-logo">
+            <a href="home.html" class="brand-name">ORYN <span> CAMPUS</span></a>
+        </div>
+        <a href="home.html" class="btn-back">Home</a>
+    </nav>
+</header>
+<div class="hero-slideshow">
+    <div class="slide active">
+        <img src="feedback1.jpg" alt="Campus Feedback">
+        <div class="slide-overlay">
+            <div class="hero-content">
+                <h1>Your Voice Matters</h1>
+                <p>Rate and review campus services — help us improve for every student</p>
+                <div class="cta-btns">
+                    <a href="#write-review" class="cta-btn primary">Write a Review</a>
+                    <a href="#opinion" class="cta-btn secondary">Share Opinion</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide">
+        <img src="feedback2.jpg" alt="Student Feedback">
+        <div class="slide-overlay">
+            <div class="hero-content">
+                <h1>Shape Our Campus</h1>
+                <p>Your feedback directly improves the services and spaces you use every day</p>
+                <div class="cta-btns">
+                    <a href="#write-review" class="cta-btn primary">Share Feedback</a>
+                    <a href="#ratings" class="cta-btn secondary">See Ratings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-dots">
+        <div class="dot active" onclick="goSlide(0)"></div>
+        <div class="dot" onclick="goSlide(1)"></div>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="section-title" id="ratings">Campus <span>Overall Rating</span></h2>
+    <p class="section-sub">Aggregated from all student reviews across every service</p>
+
+    <div class="rating-overview">
+        <div class="big-rating">
+            <div class="big-num">4.3</div>
+            <div class="stars-row">
+                <div class="star-filled"></div>
+                <div class="star-filled"></div>
+                <div class="star-filled"></div>
+                <div class="star-filled"></div>
+                <div class="star-half"></div>
+            </div>
+            <div class="total-reviews">Based on 1,247 reviews</div>
+        </div>
+        <div class="rating-bars">
+            <div class="bar-row"><span class="bar-label">5 star</span><div class="bar-track"><div class="bar-fill" style="width:58%"></div></div><span class="bar-count">724</span></div>
+            <div class="bar-row"><span class="bar-label">4 star</span><div class="bar-track"><div class="bar-fill" style="width:25%"></div></div><span class="bar-count">312</span></div>
+            <div class="bar-row"><span class="bar-label">3 star</span><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div><span class="bar-count">125</span></div>
+            <div class="bar-row"><span class="bar-label">2 star</span><div class="bar-track"><div class="bar-fill" style="width:5%"></div></div><span class="bar-count">62</span></div>
+            <div class="bar-row"><span class="bar-label">1 star</span><div class="bar-track"><div class="bar-fill" style="width:2%"></div></div><span class="bar-count">24</span></div>
+        </div>
+    </div>
+    <h2 class="section-title" id="write-review">Write a <span>Review</span></h2>
+    <p class="section-sub">Share your experience with the ORYN campus community</p>
+
+    <div class="review-form">
+        <h3>Your Review</h3>
+        <p class="sub-text">Help fellow students make informed decisions by sharing your honest feedback about campus services.</p>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" class="form-ctrl" id="rName" placeholder="Full name">
+            </div>
+            <div class="form-group">
+                <label>Student ID</label>
+                <input type="text" class="form-ctrl" id="rStu" placeholder="STU123456">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Service / Department</label>
+            <select class="form-ctrl" id="rService">
+                <option value="">-- Select Service --</option>
+                <option>Cafe</option>
+                <option>Library</option>
+                <option>Fitness Center</option>
+                <option>Community Platform</option>
+                <option>Transit Services</option>
+                <option>Student Welfare</option>
+                <option>Career Services</option>
+                <option>Marketplace</option>
+                <option>Events and Activities</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Your Rating</label>
+            <div class="star-picker" id="starPick">
+                <button type="button" class="star-btn" onclick="setRating(1)">1</button>
+                <button type="button" class="star-btn" onclick="setRating(2)">2</button>
+                <button type="button" class="star-btn" onclick="setRating(3)">3</button>
+                <button type="button" class="star-btn" onclick="setRating(4)">4</button>
+                <button type="button" class="star-btn" onclick="setRating(5)">5</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Review Title</label>
+            <input type="text" class="form-ctrl" id="rTitle" placeholder="Summarise your experience in one line">
+        </div>
+
+        <div class="form-group">
+            <label>Detailed Review</label>
+            <textarea class="form-ctrl" id="rText" rows="5" placeholder="Share your experience in detail — what was great, what could improve?"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Recommendation</label>
+            <select class="form-ctrl" id="rRec">
+                <option value="yes">Yes, I recommend this service</option>
+                <option value="maybe">Maybe — with improvements</option>
+                <option value="no">No, needs major improvements</option>
+            </select>
+        </div>
+
+        <button class="btn-submit" onclick="submitReview()">Submit Review</button>
+    </div>
+
+    <h2 class="section-title" id="opinion">Share Your <span>Opinion</span></h2>
+    <p class="section-sub">Quick thoughts, suggestions, or general comments about ORYN Campus</p>
+
+    <div class="opinion-box">
+        <h3>Comment and Opinion</h3>
+        <p class="sub-text">Use this space to share a quick comment, suggestion, complaint, or compliment about any aspect of campus life — no account needed.</p>
+
+        <div class="form-group">
+            <label>Your Name (optional)</label>
+            <input type="text" class="form-ctrl" id="oName" placeholder="Anonymous or your name">
+        </div>
+
+        <div class="form-group">
+            <label>Opinion Type</label>
+            <div class="opinion-type-row" id="opinionTypeRow">
+                <button class="opinion-type-btn selected" onclick="selectOpinionType(this,'Suggestion')">Suggestion</button>
+                <button class="opinion-type-btn" onclick="selectOpinionType(this,'Compliment')">Compliment</button>
+                <button class="opinion-type-btn" onclick="selectOpinionType(this,'Complaint')">Complaint</button>
+                <button class="opinion-type-btn" onclick="selectOpinionType(this,'General Comment')">General Comment</button>
+                <button class="opinion-type-btn" onclick="selectOpinionType(this,'Idea')">Idea</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Related Service (optional)</label>
+            <select class="form-ctrl" id="oService">
+                <option value="">-- All / General --</option>
+                <option>Cafe</option>
+                <option>Library</option>
+                <option>Fitness Center</option>
+                <option>Transit</option>
+                <option>Community</option>
+                <option>Student Welfare</option>
+                <option>Campus Facilities</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Your Comment or Opinion</label>
+            <textarea class="form-ctrl" id="oText" rows="6" placeholder="Write your comment, suggestion, or opinion here. Be as specific as you like — every piece of feedback helps us improve ORYN Campus for everyone."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Contact Email (optional — for follow-up)</label>
+            <input type="email" class="form-ctrl" id="oEmail" placeholder="your@email.com">
+        </div>
+
+        <button class="btn-submit-opinion" onclick="submitOpinion()">Submit Opinion</button>
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+    
+        <div class="fs">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:feedback@oryuncampus.edu">feedback@oryuncampus.edu</a></li>
+              
+            </ul>
+        </div>
+        <div class="fs">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="home.html">Campus Hub</a></li>
+               
+                
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 ORYN Campus Social Feedback. All rights reserved. | <a href="#terms">Terms</a> | <a href="#privacy">Privacy Policy</a></p>
+    </div>
+</footer>
+
+<script>
+let cur = 0;
+const slides = document.querySelectorAll('.slide');
+const dots   = document.querySelectorAll('.dot');
+function showSlide(i) {
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    cur = (i + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+}
+function goSlide(i) { showSlide(i); }
+setInterval(() => showSlide(cur + 1), 6500);
+
+let selectedRating = 0;
+function setRating(n) {
+    selectedRating = n;
+    document.querySelectorAll('#starPick .star-btn').forEach((btn, i) => {
+        btn.classList.toggle('on', i < n);
+    });
+}
+function submitReview() {
+    const name  = document.getElementById('rName').value.trim();
+    const stu   = document.getElementById('rStu').value.trim();
+    const svc   = document.getElementById('rService').value;
+    const title = document.getElementById('rTitle').value.trim();
+    const text  = document.getElementById('rText').value.trim();
+
+    if (!name || !stu || !svc || !selectedRating || !text) {
+        showToast('Please fill in all required fields and select a rating.');
+        return;
+    }
+
+    const pts = parseInt(localStorage.getItem('reward_points') || '0') + 20;
+    localStorage.setItem('reward_points', pts);
+
+    showToast('Review submitted! You earned 20 reward points. Thank you!');
+
+    document.getElementById('rName').value  = '';
+    document.getElementById('rStu').value   = '';
+    document.getElementById('rTitle').value = '';
+    document.getElementById('rText').value  = '';
+    document.getElementById('rService').value = '';
+    selectedRating = 0;
+    document.querySelectorAll('#starPick .star-btn').forEach(b => b.classList.remove('on'));
+}
+
+let selectedOpinionType = 'Suggestion';
+function selectOpinionType(btn, type) {
+    document.querySelectorAll('.opinion-type-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedOpinionType = type;
+}
+
+function submitOpinion() {
+    const text = document.getElementById('oText').value.trim();
+    if (!text) {
+        showToast('Please write your comment or opinion before submitting.');
+        return;
+    }
+    showToast('Opinion submitted! Thank you for helping improve ORYN Campus.');
+    document.getElementById('oName').value  = '';
+    document.getElementById('oText').value  = '';
+    document.getElementById('oEmail').value = '';
+    document.getElementById('oService').value = '';
+    document.querySelectorAll('.opinion-type-btn').forEach(b => b.classList.remove('selected'));
+    document.querySelector('.opinion-type-btn').classList.add('selected');
+    selectedOpinionType = 'Suggestion';
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+}
+</script>
+</body>
+</html>

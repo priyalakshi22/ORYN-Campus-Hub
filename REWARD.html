@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORYN Rewards - Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --accent: #D4A574;
+            --accent2: #c4955f;
+            --green: #22C55E;
+            --red: #EF4444;
+            --white: #fff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --muted: rgba(255, 255, 255, 0.65);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a, #120e05, #0a0a0a);
+            color: var(--white);
+            line-height: 1.6;
+        }
+        /* HEADER */
+        
+        header {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .campus-logo {
+            height: 55px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(212, 165, 116, 0.4));
+        }
+        
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+        
+        .brand-name span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: .9rem;
+            transition: color .3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .btn-back {
+            padding: .7rem 1.5rem;
+            background: rgba(212, 165, 116, 0.15);
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all .3s;
+            font-size: .9rem;
+        }
+        
+        .btn-back:hover {
+            background: var(--accent);
+            color: #000;
+            transform: translateY(-2px);
+        }
+        /* SLIDESHOW */
+        
+        .hero-slideshow {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(.65);
+        }
+        
+        .sf1 {
+            background: linear-gradient(135deg, #1a1000, #3d2800, #7a5000, #D4A574);
+        }
+        
+        .sf2 {
+            background: linear-gradient(135deg, #120800, #2d1600, #5a2c00, #c4955f);
+        }
+        
+        .sf3 {
+            background: linear-gradient(135deg, #0a0505, #201008, #401a10, #8B4513);
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, .72), rgba(212, 165, 116, .22));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 900px;
+            padding: 2rem;
+            animation: slideUp 1s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+        
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, .5);
+            line-height: 1.1;
+        }
+        
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: .95;
+        }
+        
+        .cta-btns {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 1.1rem 2.8rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all .3s;
+            font-size: 1rem;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .cta-btn.primary {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
+        
+        .cta-btn.primary:hover {
+            background: transparent;
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 165, 116, .4);
+        }
+        
+        .cta-btn.secondary {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+        
+        .cta-btn.secondary:hover {
+            background: var(--white);
+            color: #000;
+            transform: translateY(-3px);
+        }
+        
+        .slide-dots {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: .75rem;
+            z-index: 10;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .4);
+            cursor: pointer;
+            transition: all .3s;
+            border: 1px solid rgba(255, 255, 255, .3);
+        }
+        
+        .dot.active {
+            background: var(--accent);
+            width: 35px;
+            border-radius: 6px;
+            box-shadow: 0 2px 15px rgba(212, 165, 116, .6);
+        }
+        /* LAYOUT */
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: .75rem;
+            text-align: center;
+        }
+        
+        .section-title span {
+            color: var(--accent);
+        }
+        
+        .section-sub {
+            text-align: center;
+            color: var(--muted);
+            font-size: 1.05rem;
+            margin-bottom: 3rem;
+        }
+        /* POINTS SUMMARY */
+        
+        .points-hero {
+            background: linear-gradient(135deg, rgba(212, 165, 116, .18), rgba(196, 149, 95, .08));
+            border: 2px solid rgba(212, 165, 116, .35);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .pts-left h3 {
+            color: var(--muted);
+            font-size: .9rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: .5rem;
+        }
+        
+        .pts-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: .5rem;
+        }
+        
+        .pts-rank {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(212, 165, 116, .2);
+            border: 1px solid rgba(212, 165, 116, .4);
+            color: var(--accent);
+            padding: .4rem 1.2rem;
+            border-radius: 50px;
+            font-size: .9rem;
+            font-weight: 700;
+        }
+        
+        .pts-divider {
+            width: 2px;
+            height: 120px;
+            background: linear-gradient(transparent, rgba(212, 165, 116, .5), transparent);
+        }
+        
+        .pts-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .pts-action-btn {
+            padding: 1rem 1.8rem;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .3s;
+            font-family: 'Inter', sans-serif;
+            font-size: .95rem;
+            border: 2px solid;
+            text-align: center;
+        }
+        
+        .pa-primary {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
+        
+        .pa-primary:hover {
+            background: var(--accent2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, .4);
+        }
+        
+        .pa-outline {
+            background: transparent;
+            color: var(--accent);
+            border-color: rgba(212, 165, 116, .4);
+        }
+        
+        .pa-outline:hover {
+            background: rgba(212, 165, 116, .15);
+            border-color: var(--accent);
+        }
+        /* TABS */
+        
+        .tab-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .t-btn {
+            padding: 1rem 2.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--muted);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .3s;
+            margin-bottom: -2px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .t-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        
+        .tab-pane {
+            display: none;
+        }
+        
+        .tab-pane.active {
+            display: block;
+        }
+        /* REWARD CARDS */
+        
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .reward-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all .35s cubic-bezier(.175, .885, .32, 1.275);
+            position: relative;
+        }
+        
+        .reward-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(212, 165, 116, .3);
+            border-color: var(--accent);
+        }
+        
+        .reward-card.locked-card {
+            opacity: .8;
+        }
+        
+        .reward-card.locked-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, .15);
+            border-color: rgba(239, 68, 68, .4);
+        }
+        
+        .reward-img-wrap {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .reward-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease;
+            filter: brightness(.9);
+        }
+        
+        .reward-card:hover .reward-img-wrap img {
+            transform: scale(1.08);
+            filter: brightness(1);
+        }
+        
+        .img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, .65) 100%);
+        }
+        
+        .img-badge {
+            position: absolute;
+            top: .9rem;
+            right: .9rem;
+            padding: .3rem .85rem;
+            border-radius: 20px;
+            font-size: .75rem;
+            font-weight: 700;
+            backdrop-filter: blur(8px);
+        }
+        
+        .ib-avail {
+            background: rgba(34, 197, 94, .3);
+            border: 1px solid rgba(34, 197, 94, .5);
+            color: #fff;
+        }
+        
+        .ib-lock {
+            background: rgba(239, 68, 68, .3);
+            border: 1px solid rgba(239, 68, 68, .5);
+            color: #fff;
+        }
+        
+        .img-pts {
+            position: absolute;
+            bottom: .9rem;
+            left: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, .8);
+        }
+        
+        .img-pts span {
+            font-size: .85rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, .8);
+            margin-left: .2rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .reward-body {
+            padding: 1.4rem 1.5rem 1.6rem;
+        }
+        
+        .reward-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: .4rem;
+        }
+        
+        .reward-desc {
+            color: var(--muted);
+            font-size: .875rem;
+            margin-bottom: 1.3rem;
+            line-height: 1.6;
+        }
+        
+        .btn-redeem {
+            width: 100%;
+            padding: .85rem;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .3s;
+            font-family: 'Inter', sans-serif;
+            font-size: .95rem;
+        }
+        
+        .btn-redeem:hover:not(:disabled) {
+            background: var(--accent2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, .5);
+        }
+        
+        .btn-redeem:disabled {
+            background: rgba(255, 255, 255, .1);
+            color: rgba(255, 255, 255, .35);
+            cursor: not-allowed;
+            border: 2px solid rgba(255, 255, 255, .15);
+        }
+        
+        .btn-redeem.locked-btn {
+            background: rgba(239, 68, 68, .15);
+            color: rgba(239, 68, 68, .7);
+            border: 2px solid rgba(239, 68, 68, .3);
+        }
+        /* EARN GRID */
+        
+        .earn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .earn-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all .3s;
+        }
+        
+        .earn-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 35px rgba(212, 165, 116, .2);
+        }
+        
+        .earn-label {
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            color: var(--accent);
+            margin-bottom: .75rem;
+            display: block;
+        }
+        
+        .earn-card h3 {
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: .5rem;
+        }
+        
+        .earn-card p {
+            color: var(--muted);
+            font-size: .9rem;
+            margin-bottom: .75rem;
+            line-height: 1.6;
+        }
+        
+        .earn-pts {
+            display: inline-block;
+            background: rgba(212, 165, 116, .2);
+            border: 1px solid rgba(212, 165, 116, .4);
+            color: var(--accent);
+            padding: .3rem .9rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: .85rem;
+        }
+        /* REDEEM MODAL */
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .85);
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal-overlay.open {
+            display: flex;
+        }
+        
+        .modal {
+            background: #0f0f0f;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .modal-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            filter: brightness(.8);
+        }
+        
+        .modal-body {
+            padding: 2rem 2.5rem 2.5rem;
+        }
+        
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: .5rem;
+        }
+        
+        .modal-desc {
+            color: var(--muted);
+            font-size: .95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-cost {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(212, 165, 116, .1);
+            border: 1px solid rgba(212, 165, 116, .3);
+            border-radius: 14px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-cost .label {
+            color: var(--muted);
+            font-size: .9rem;
+        }
+        
+        .modal-cost .val {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        
+        .modal-balance {
+            color: var(--muted);
+            font-size: .85rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-balance span {
+            color: var(--white);
+            font-weight: 600;
+        }
+        
+        .modal-btns {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .modal-confirm {
+            flex: 1;
+            padding: 1rem;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all .3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .modal-confirm:hover:not(:disabled) {
+            background: var(--accent2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, .5);
+        }
+        
+        .modal-confirm:disabled {
+            background: rgba(239, 68, 68, .2);
+            color: rgba(239, 68, 68, .7);
+            cursor: not-allowed;
+        }
+        
+        .modal-cancel {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(255, 255, 255, .07);
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, .2);
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all .3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .modal-cancel:hover {
+            background: rgba(255, 255, 255, .12);
+        }
+        
+        .modal-close-x {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, .5);
+            border: none;
+            color: var(--white);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            transition: all .3s;
+            z-index: 10;
+        }
+        
+        .modal-close-x:hover {
+            background: rgba(0, 0, 0, .8);
+        }
+        /* TOAST */
+        
+        .toast {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent);
+            color: #000;
+            padding: 1.1rem 1.8rem;
+            border-radius: 16px;
+            font-weight: 700;
+            z-index: 9999;
+            box-shadow: 0 6px 24px rgba(212, 165, 116, .6);
+            max-width: 360px;
+            font-size: .95rem;
+        }
+        
+        .toast.show {
+            display: block;
+            animation: toastIn .35s ease-out;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(80px)
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+        /* FOOTER */
+        
+        footer {
+            background: rgba(0, 0, 0, .8);
+            backdrop-filter: blur(20px);
+            padding: 3rem 2rem 1.5rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .fs h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .fs ul {
+            list-style: none;
+        }
+        
+        .fs ul li,
+        .fs a {
+            color: var(--muted);
+            text-decoration: none;
+            display: block;
+            margin-bottom: .5rem;
+            font-size: .9rem;
+            transition: color .3s;
+        }
+        
+        .fs a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: .85rem;
+        }
+        
+        .footer-bottom a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        @media(max-width:900px) {
+            .points-hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .pts-divider {
+                display: none;
+            }
+            .pts-right {
+                align-items: center;
+            }
+        }
+        
+        @media(max-width:768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-slideshow {
+                height: 450px;
+            }
+            .cta-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .rewards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+         ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+         ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, .04);
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background: rgba(212, 165, 116, .5);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-section">
+                <img src="LOGO.jpg" alt="ORYN Logo" class="campus-logo" onerror="this.style.display='none'">
+                <a href="home.html" class="brand-name">ORYN <span>REWARDS</span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="Cafe.html">Cafe</a></li>
+                <li><a href="LIBRARY.html">Library</a></li>
+                <li><a href="fitness.html">Fitness</a></li>
+            </ul>
+            <a href="home.html" class="btn-back">Back to Home</a>
+        </nav>
+    </header>
+    <div class="hero-slideshow">
+        <div class="slide active">
+            <img src="rewards.jpeg" alt="Rewards" onerror="this.style.display='none'">
+            <div class="slide-overlay">
+                <div class="hero-content">
+                    <h1>Your Loyalty, Rewarded</h1>
+                    <p>Earn points across every campus service and unlock exclusive perks</p>
+                    <div class="cta-btns">
+                        <button class="cta-btn primary" onclick="switchTab('redeem')">Redeem Points</button>
+                        <button class="cta-btn secondary" onclick="switchTab('earn')">How to Earn</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="re.jpeg" alt="Rewards Trophy" onerror="this.style.display='none'">
+            <div class="slide-overlay">
+                <div class="hero-content">
+                    <h1>Exclusive Campus Perks</h1>
+                    <p>Free coffees, gym sessions, event passes and more — all redeemable with points</p>
+                    <div class="cta-btns">
+                        <button class="cta-btn primary" onclick="switchTab('redeem')">Browse Rewards</button>
+                        <button class="cta-btn secondary" onclick="switchTab('earn')">How to Earn</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="sf3" style="width:100%;height:100%;position:absolute;"></div>
+            <div class="slide-overlay">
+                <div class="hero-content">
+                    <h1>Rise Through the Tiers</h1>
+                    <p>The more you engage with campus, the more points you earn and the more you unlock</p>
+                    <div class="cta-btns">
+                        <button class="cta-btn primary" onclick="switchTab('redeem')">Start Redeeming</button>
+                        <button class="cta-btn secondary" onclick="switchTab('earn')">Earn More Points</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-dots">
+            <div class="dot active" onclick="goSlide(0)"></div>
+            <div class="dot" onclick="goSlide(1)"></div>
+            <div class="dot" onclick="goSlide(2)"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="points-hero">
+            <div class="pts-left">
+                <h3>Your Points Balance</h3>
+                <div class="pts-number" id="ptsDisplay">0</div>
+                <div class="pts-rank" id="rankDisplay">Loading...</div>
+            </div>
+            <div class="pts-divider"></div>
+            <div class="pts-right">
+                <button class="pts-action-btn pa-primary" onclick="switchTab('redeem')">Redeem Points</button>
+                <button class="pts-action-btn pa-outline" onclick="switchTab('earn')">How to Earn Points</button>
+            </div>
+        </div>
+        <div class="tab-bar">
+            <button class="t-btn active" onclick="switchTab('redeem', this)">Redeem</button>
+            <button class="t-btn" onclick="switchTab('earn', this)">How to Earn</button>
+        </div>
+        <div class="tab-pane active" id="tab-redeem">
+            <h2 class="section-title">Redeem Your <span>Points</span></h2>
+            <p class="section-sub">Click any reward card to open the confirmation — your points are deducted instantly</p>
+
+            <div class="rewards-grid" id="rewardsGrid">
+                <!-- Rewards will be loaded dynamically -->
+                <div class="loading-spinner" style="margin: 2rem auto;"></div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab-earn">
+            <h2 class="section-title">How to <span>Earn Points</span></h2>
+            <p class="section-sub">Every interaction with ORYN campus earns you points towards great rewards</p>
+            <div class="earn-grid" id="earnGrid">
+                <!-- Earn methods will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+        <div class="modal" id="redeemModal">
+            <button class="modal-close-x" onclick="closeModal()">X</button>
+            <img id="modalImg" src="" alt="Reward" class="modal-img">
+            <div class="modal-body">
+                <div class="modal-title" id="modalTitle">Reward Name</div>
+                <div class="modal-desc" id="modalDesc">Description here.</div>
+                <div class="modal-cost">
+                    <span class="label">Points Required</span>
+                    <span class="val" id="modalCost">0 pts</span>
+                </div>
+                <div class="modal-balance">
+                    Your balance: <span id="modalBalance">0</span> pts &nbsp;|&nbsp; After redeem: <span id="modalAfter">0</span> pts
+                </div>
+                <div class="modal-btns">
+                    <button class="modal-confirm" id="modalConfirm" onclick="confirmRedeem()">Confirm Redeem</button>
+                    <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="toast" id="toast"></div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="fs">
+                <h3>Rewards Info</h3>
+                <ul>
+                    <li>Points never expire</li>
+                    <li>Redeemable across all services</li>
+                    <li>Monthly bonus for Gold and above</li>
+                    <li>More rewards added regularly</li>
+                </ul>
+            </div>
+            <div class="fs">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="mailto:rewards@oryuncampus.edu">rewards@oryuncampus.edu</a></li>
+                </ul>
+            </div>
+            <div class="fs">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="home.html">Campus Hub</a></li>
+                    <li><a href="Cafe.html">Cafe</a></li>
+                    <li><a href="fitness.html">Fitness</a></li>
+                    <li><a href="social-feedback.html">Leave a Review — +20 pts</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ORYN Campus Rewards. All rights reserved. | <a href="#terms">Terms</a> | <a href="#privacy">Privacy</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // API Configuration
+        const API_BASE = 'http://localhost:5500/api';
+        let currentUserId = null;
+        let currentPoints = 0;
+        let pendingReward = null;
+
+        // Get user ID from localStorage (set after login)
+        function getCurrentUserId() {
+            const user = localStorage.getItem('user');
+            if (user) {
+                try {
+                    const userData = JSON.parse(user);
+                    return userData.id;
+                } catch (e) {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        // Fetch user's reward points from database
+        async function fetchUserPoints() {
+            const userId = getCurrentUserId();
+            if (!userId) {
+                // Fallback to localStorage if not logged in
+                const points = localStorage.getItem('reward_points') || '0';
+                currentPoints = parseInt(points);
+                updatePointsDisplay();
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/rewards/${userId}`);
+                const result = await response.json();
+
+                if (result.success) {
+                    currentPoints = result.points || 0;
+                    localStorage.setItem('reward_points', currentPoints);
+                    updatePointsDisplay();
+                } else {
+                    // Fallback to localStorage
+                    const points = localStorage.getItem('reward_points') || '0';
+                    currentPoints = parseInt(points);
+                    updatePointsDisplay();
+                }
+            } catch (error) {
+                console.error('Error fetching points:', error);
+                const points = localStorage.getItem('reward_points') || '0';
+                currentPoints = parseInt(points);
+                updatePointsDisplay();
+            }
+        }
+
+        // Update points display and tier
+        function updatePointsDisplay() {
+            document.getElementById('ptsDisplay').textContent = currentPoints.toLocaleString();
+
+            let tier = 'Bronze';
+            if (currentPoints >= 5000) tier = 'Elite';
+            else if (currentPoints >= 2000) tier = 'Platinum';
+            else if (currentPoints >= 1000) tier = 'Gold';
+            else if (currentPoints >= 500) tier = 'Silver';
+
+            document.getElementById('rankDisplay').textContent = tier + ' Tier Member';
+
+            // Update reward cards availability
+            updateRewardCardsAvailability();
+        }
+
+        // Update reward cards based on points
+        function updateRewardCardsAvailability() {
+            const cards = document.querySelectorAll('.reward-card');
+            cards.forEach(card => {
+                const cost = parseInt(card.dataset.pts);
+                const canAfford = currentPoints >= cost;
+                const btn = card.querySelector('.btn-redeem');
+                const badge = card.querySelector('.img-badge');
+
+                if (btn) {
+                    btn.disabled = !canAfford;
+                    btn.textContent = canAfford ? 'Redeem Now' : 'Insufficient Points';
+                    btn.className = canAfford ? 'btn-redeem' : 'btn-redeem locked-btn';
+                }
+                if (badge) {
+                    badge.className = canAfford ? 'img-badge ib-avail' : 'img-badge ib-lock';
+                    badge.textContent = canAfford ? 'Available' : 'Locked';
+                }
+                if (canAfford) {
+                    card.classList.remove('locked-card');
+                } else {
+                    card.classList.add('locked-card');
+                }
+            });
+        }
+
+        // Fetch rewards from database
+        async function fetchRewards() {
+            try {
+                const response = await fetch(`${API_BASE}/rewards/list`);
+                const result = await response.json();
+
+                if (result.success && result.rewards) {
+                    renderRewards(result.rewards);
+                } else {
+                    // Use fallback rewards
+                    useFallbackRewards();
+                }
+            } catch (error) {
+                console.error('Error fetching rewards:', error);
+                useFallbackRewards();
+            }
+        }
+
+        // Fallback rewards data
+        function useFallbackRewards() {
+            const fallbackRewards = [{
+                id: 1,
+                name: 'Free Coffee',
+                points: 150,
+                description: 'Any hot or cold drink at ORYN Cafe — barista-made, your choice of size and blend.',
+                image: 'free_coffee.jpg',
+                category: 'cafe',
+                is_available: true
+            }, {
+                id: 2,
+                name: 'Library Extension',
+                points: 200,
+                description: 'Extend any borrowed book by 2 extra weeks with no late fees or penalties applied.',
+                image: 'library_exten.jpg',
+                category: 'library',
+                is_available: true
+            }, {
+                id: 3,
+                name: 'Event Pass',
+                points: 300,
+                description: 'Free entry to any premium campus event, workshop, or cultural programme of your choice.',
+                image: 'free_ticket.jpg',
+                category: 'events',
+                is_available: true
+            }, {
+                id: 4,
+                name: 'Free Transit Pass',
+                points: 350,
+                description: 'One full week of unlimited bus rides across all ORYN campus routes — any time, any bus.',
+                image: 'free_trans.jpg',
+                category: 'transit',
+                is_available: true
+            }, {
+                id: 5,
+                name: 'Course and Fee Discount',
+                points: 1000,
+                description: '20% off any certification course or short programme offered at ORYN Campus this semester.',
+                image: 'discount.jpg',
+                category: 'academic',
+                is_available: true
+            }];
+            renderRewards(fallbackRewards);
+        }
+
+        // Render rewards cards
+        function renderRewards(rewards) {
+            const container = document.getElementById('rewardsGrid');
+            if (!container) return;
+
+            container.innerHTML = rewards.map(reward => `
+            <div class="reward-card" 
+                 data-pts="${reward.points}"
+                 data-name="${reward.name}"
+                 data-img="${reward.image}"
+                 data-desc="${reward.description}"
+                 data-id="${reward.id}"
+                 onclick="openModal(this)">
+                <div class="reward-img-wrap">
+                    <img src="${reward.image}" alt="${reward.name}" onerror="this.src='https://placehold.co/400x200/D4A574/white?text=${reward.name}'">
+                    <div class="img-overlay"></div>
+                    <div class="img-badge ib-avail">Available</div>
+                    <div class="img-pts">${reward.points} <span>pts</span></div>
+                </div>
+                <div class="reward-body">
+                    <div class="reward-title">${reward.name}</div>
+                    <div class="reward-desc">${reward.description}</div>
+                    <button class="btn-redeem">Redeem Now</button>
+                </div>
+            </div>
+        `).join('');
+
+            updateRewardCardsAvailability();
+        }
+
+        // Fetch earn methods from database
+        async function fetchEarnMethods() {
+            try {
+                const response = await fetch(`${API_BASE}/rewards/earn-methods`);
+                const result = await response.json();
+
+                if (result.success && result.methods) {
+                    renderEarnMethods(result.methods);
+                } else {
+                    useFallbackEarnMethods();
+                }
+            } catch (error) {
+                console.error('Error fetching earn methods:', error);
+                useFallbackEarnMethods();
+            }
+        }
+
+        // Fallback earn methods
+        function useFallbackEarnMethods() {
+            const methods = [{
+                label: 'Library',
+                title: 'Borrow Library Books',
+                description: 'Visit the library and borrow any book from the collection. Bonus points for on-time returns.',
+                points: 50
+            }, {
+                label: 'Events',
+                title: 'Attend Campus Events',
+                description: 'Show up to workshops, cultural nights, sports days, and all events tracked via your digital ID.',
+                points: 100
+            }, {
+                label: 'Fitness',
+                title: 'Gym Class Attendance',
+                description: 'Register and attend fitness classes at ORYN Fitness Centre. Weekly consistency bonuses apply.',
+                points: 30
+            }, {
+                label: 'Cafe',
+                title: 'Cafe Purchases',
+                description: 'Every Rs. 50 spent at ORYN Cafe earns you 1 point. Pre-ordering doubles your earned points.',
+                points: 1
+            }, {
+                label: 'Transit',
+                title: 'Transit Location Sharing',
+                description: 'Share your live location on transit routes to help fellow students track campus buses.',
+                points: 5
+            }, {
+                label: 'Feedback',
+                title: 'Write Reviews',
+                description: 'Submit a verified review for any campus service — cafe, library, fitness, transit, and more.',
+                points: 20
+            }, {
+                label: 'Community',
+                title: 'Volunteer on Campus',
+                description: 'Sign up to volunteer at campus events, orientation, or community outreach programmes.',
+                points: 200
+            }, {
+                label: 'Academic',
+                title: 'Submit Assignments Early',
+                description: 'Submit coursework before the deadline and earn academic bonus points tracked by faculty.',
+                points: 75
+            }, {
+                label: 'Referral',
+                title: 'Refer a Friend',
+                description: 'Refer a new student to ORYN Campus and earn bonus points when they complete registration.',
+                points: 150
+            }, {
+                label: 'Surveys',
+                title: 'Complete Surveys',
+                description: 'Fill in campus satisfaction surveys and help improve services — every response is rewarded.',
+                points: 30
+            }, {
+                label: 'Marketplace',
+                title: 'Marketplace Sales',
+                description: 'List and sell items in the ORYN Marketplace. Points are credited for every completed sale.',
+                points: 25
+            }, {
+                label: 'Academic',
+                title: 'Academic Achievements',
+                description: 'Make the Dean\'s List, win competitions, or earn certifications — faculty submit bonus points.',
+                points: 500
+            }];
+            renderEarnMethods(methods);
+        }
+
+        // Render earn methods
+        function renderEarnMethods(methods) {
+            const container = document.getElementById('earnGrid');
+            if (!container) return;
+
+            container.innerHTML = methods.map(method => `
+            <div class="earn-card">
+                <span class="earn-label">${method.label}</span>
+                <h3>${method.title}</h3>
+                <p>${method.description}</p>
+                <span class="earn-pts">+${method.points} pts per ${method.label.toLowerCase()}</span>
+            </div>
+        `).join('');
+        }
+
+        // Redeem reward
+        async function redeemReward(rewardId, rewardName, pointsCost) {
+            const userId = getCurrentUserId();
+
+            if (!userId) {
+                showToast('Please log in to redeem rewards', 'error');
+                return false;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/rewards/redeem`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        points_cost: pointsCost,
+                        reward_name: rewardName
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast(`✅ ${result.message}`, 'success');
+                    await fetchUserPoints(); // Refresh points
+                    return true;
+                } else {
+                    showToast(`❌ ${result.message}`, 'error');
+                    return false;
+                }
+            } catch (error) {
+                console.error('Redemption error:', error);
+                // Fallback for demo
+                showToast(`✅ Redeemed ${rewardName} successfully! (Demo mode)`, 'success');
+                return true;
+            }
+        }
+
+        // Modal functions
+        let pendingName = '',
+            pendingCost = 0,
+            pendingId = null;
+
+        function openModal(card) {
+            const cost = parseInt(card.dataset.pts);
+            const name = card.dataset.name;
+            const desc = card.dataset.desc;
+            const img = card.dataset.img;
+            const id = card.dataset.id;
+
+            pendingName = name;
+            pendingCost = cost;
+            pendingId = id;
+
+            const canAfford = currentPoints >= cost;
+
+            document.getElementById('modalImg').src = img || 'https://placehold.co/400x200/D4A574/white?text=' + name;
+            document.getElementById('modalTitle').textContent = name;
+            document.getElementById('modalDesc').textContent = desc;
+            document.getElementById('modalCost').textContent = cost.toLocaleString() + ' pts';
+            document.getElementById('modalBalance').innerHTML = `Your balance: <span>${currentPoints.toLocaleString()}</span> pts &nbsp;|&nbsp; After redeem: <span>${canAfford ? (currentPoints - cost).toLocaleString() : 'Not enough points'}</span> pts`;
+
+            const confirmBtn = document.getElementById('modalConfirm');
+            if (!canAfford) {
+                confirmBtn.disabled = true;
+                confirmBtn.textContent = 'Not Enough Points';
+                confirmBtn.style.cssText = 'background:rgba(239,68,68,.2);color:rgba(239,68,68,.7);cursor:not-allowed;';
+            } else {
+                confirmBtn.disabled = false;
+                confirmBtn.textContent = 'Confirm Redeem';
+                confirmBtn.style.cssText = '';
+            }
+
+            document.getElementById('modalOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function closeModalOutside(e) {
+            if (e.target === document.getElementById('modalOverlay')) closeModal();
+        }
+
+        async function confirmRedeem() {
+            if (currentPoints < pendingCost) {
+                showToast('Insufficient points to redeem this reward', 'error');
+                return;
+            }
+
+            const success = await redeemReward(pendingId, pendingName, pendingCost);
+
+            if (success) {
+                closeModal();
+                await fetchUserPoints(); // Refresh points display
+                showToast(`"${pendingName}" redeemed successfully! Enjoy your reward.`);
+            }
+        }
+
+        // Tab switching
+        function switchTab(id, el) {
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + id).classList.add('active');
+            if (el) {
+                el.classList.add('active');
+            }
+        }
+
+        // Show toast message
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.style.background = type === 'error' ? '#dc2626' : 'var(--accent)';
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // Slideshow
+        let cur = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(i) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            cur = (i + slides.length) % slides.length;
+            slides[cur].classList.add('active');
+            dots[cur].classList.add('active');
+        }
+
+        function goSlide(i) {
+            showSlide(i);
+        }
+        setInterval(() => showSlide(cur + 1), 6500);
+
+        // Initialize page
+        async function init() {
+            currentUserId = getCurrentUserId();
+            await fetchUserPoints();
+            await fetchRewards();
+            await fetchEarnMethods();
+        }
+
+        // Start the app
+        init();
+    </script>
+</body>
+
+</html>

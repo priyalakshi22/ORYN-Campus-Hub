@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marketplace - ORYN Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --accent:#15857e; --accent2:#4b6d0c;
+            --green:#4CAF50; --red:#EF4444;
+            --white:#fff; --glass:rgba(255,255,255,0.05);
+            --border:rgba(255,255,255,0.1); --muted:rgba(255,255,255,0.65);
+        }
+        body { font-family:'Inter',sans-serif; background:linear-gradient(135deg,#050e0d,#0a1a19,#050e0d); color:var(--white); line-height:1.6; }
+
+        header { background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:1000; }
+        nav { max-width:1400px; margin:0 auto; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; }
+        .logo-section { display:flex; align-items:center; gap:1rem; }
+        .campus-logo { height:60px; object-fit:contain; filter:drop-shadow(0 2px 8px rgba(24,161,152,0.35)); }
+        .brand-name { font-family:'Playfair Display',serif; font-size:1.75rem; font-weight:800; color:var(--white); text-decoration:none; }
+        .brand-name span { color:var(--accent); }
+        .btn-back { padding:.75rem 1.5rem; background:rgba(24,161,152,0.18); color:var(--accent); border:2px solid var(--accent); border-radius:50px; font-weight:600; text-decoration:none; transition:all .3s; }
+        .btn-back:hover { background:var(--accent); color:#fff; transform:translateY(-2px); }
+
+        .hero-slideshow { position:relative; height:520px; overflow:hidden; background:#000; }
+        .slide { position:absolute; inset:0; opacity:0; transition:opacity 1.5s ease-in-out; }
+        .slide.active { opacity:1; }
+        .slide img { width:100%; height:100%; object-fit:cover; filter:brightness(.62); }
+        .slide-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(0,0,0,.78),rgba(24,161,152,.22)); display:flex; align-items:center; justify-content:center; }
+        .slide-content { text-align:center; color:var(--white); max-width:900px; padding:2rem; animation:slideUp 1s ease-out; }
+        @keyframes slideUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+        .slide-content h1 { font-family:'Playfair Display',serif; font-size:4rem; font-weight:800; margin-bottom:1rem; text-shadow:0 4px 20px rgba(0,0,0,.5); line-height:1.1; }
+        .slide-content h1 span { color:var(--accent); }
+        .slide-content p { font-size:1.25rem; margin-bottom:2rem; opacity:.95; }
+        .cta-btns { display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; }
+        .cta-btn { padding:1.1rem 2.8rem; font-weight:700; border-radius:50px; text-decoration:none; transition:all .3s; font-size:1rem; border:2px solid transparent; cursor:pointer; font-family:'Inter',sans-serif; }
+        .cta-btn.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+        .cta-btn.primary:hover { background:transparent; color:var(--accent); transform:translateY(-3px); box-shadow:0 8px 25px rgba(24,161,152,.4); }
+        .cta-btn.secondary { background:transparent; color:var(--white); border-color:var(--white); }
+        .cta-btn.secondary:hover { background:var(--white); color:#000; transform:translateY(-3px); }
+        .slide-dots { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; gap:.75rem; z-index:10; }
+        .dot { width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,.4); border:1px solid rgba(255,255,255,.3); cursor:pointer; transition:all .3s; }
+        .dot.active { background:var(--accent); width:35px; border-radius:6px; }
+
+        .container { max-width:1400px; margin:0 auto; padding:4rem 2rem; }
+        .section-title { font-family:'Playfair Display',serif; text-align:center; font-size:2.8rem; font-weight:800; color:var(--white); margin-bottom:.75rem; }
+        .section-title span { color:var(--accent); }
+        .section-sub { text-align:center; color:var(--muted); font-size:1.05rem; margin-bottom:3rem; }
+
+        .action-bar { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-bottom:3rem; }
+        .btn-action { padding:1rem 2.5rem; background:var(--accent); color:#fff; border:none; border-radius:50px; font-weight:700; cursor:pointer; font-size:1rem; transition:all .3s; font-family:'Inter',sans-serif; }
+        .btn-action:hover { background:var(--accent2); transform:translateY(-2px); box-shadow:0 6px 20px rgba(24,161,152,.4); }
+        .btn-action.outline { background:rgba(24,161,152,.15); color:var(--accent); border:2px solid var(--accent); }
+        .btn-action.outline:hover { background:var(--accent); color:#fff; }
+
+        .tabs { display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap; margin-bottom:3rem; }
+        .tab-btn { padding:.85rem 1.9rem; background:var(--glass); border:2px solid var(--border); color:var(--white); border-radius:50px; font-weight:600; cursor:pointer; transition:all .3s; font-size:.93rem; font-family:'Inter',sans-serif; }
+        .tab-btn:hover { border-color:var(--accent); color:var(--accent); }
+        .tab-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; box-shadow:0 4px 20px rgba(24,161,152,.4); }
+
+        .items-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:2rem; }
+        .item-card { background:var(--glass); backdrop-filter:blur(20px); border-radius:20px; overflow:hidden; border:1px solid var(--border); transition:all .35s cubic-bezier(.175,.885,.32,1.275); }
+        .item-card:hover { transform:translateY(-10px); background:rgba(255,255,255,.08); box-shadow:0 16px 45px rgba(24,161,152,.25); border-color:var(--accent); }
+        .item-card.hidden { display:none; }
+
+        .item-image { height:240px; overflow:hidden; position:relative; }
+        .item-image img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+        .item-card:hover .item-image img { transform:scale(1.08); }
+        .item-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,transparent 42%,rgba(0,0,0,.68)); }
+        .price-badge { position:absolute; top:1rem; right:1rem; background:var(--accent); color:#fff; padding:.4rem 1.1rem; border-radius:20px; font-size:.9rem; font-weight:800; }
+        .cond-badge { position:absolute; top:1rem; left:1rem; background:rgba(0,0,0,.65); backdrop-filter:blur(8px); color:#fff; padding:.32rem .85rem; border-radius:20px; font-size:.78rem; font-weight:700; }
+
+        .item-info { padding:1.8rem; }
+        .item-cat { background:rgba(24,161,152,.18); color:var(--accent); padding:.28rem .85rem; border-radius:12px; font-size:.78rem; font-weight:700; display:inline-block; margin-bottom:.75rem; text-transform:uppercase; letter-spacing:.4px; }
+        .item-title { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:var(--white); margin-bottom:.45rem; }
+        .item-desc { color:var(--muted); font-size:.9rem; margin-bottom:1.2rem; line-height:1.65; }
+        .item-footer { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:1.1rem; }
+        .item-seller { font-size:.83rem; color:var(--muted); }
+        .item-seller strong { color:rgba(255,255,255,.85); }
+        .btn-contact { padding:.6rem 1.5rem; background:rgba(24,161,152,.18); border:2px solid var(--accent); color:var(--accent); border-radius:12px; font-weight:700; cursor:pointer; transition:all .3s; font-size:.88rem; font-family:'Inter',sans-serif; }
+        .btn-contact:hover { background:var(--accent); color:#fff; }
+
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.82); backdrop-filter:blur(10px); z-index:9999; align-items:center; justify-content:center; padding:1rem; }
+        .modal-overlay.open { display:flex; }
+        .modal { background:linear-gradient(135deg,#0d201f,#0a1918); border:1px solid rgba(24,161,152,.3); border-radius:24px; padding:3rem; max-width:560px; width:100%; max-height:92vh; overflow-y:auto; position:relative; animation:modalIn .3s ease-out; }
+        @keyframes modalIn { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
+        .modal-close { position:absolute; top:1.4rem; right:1.4rem; background:rgba(255,255,255,.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:1rem; font-weight:700; transition:all .3s; font-family:'Inter',sans-serif; }
+        .modal-close:hover { background:var(--accent); }
+        .modal h2 { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:800; color:var(--white); margin-bottom:.4rem; }
+        .modal-sub { color:var(--muted); font-size:.92rem; margin-bottom:2rem; line-height:1.6; }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+        .form-group { margin-bottom:1.4rem; }
+        .form-group label { display:block; font-size:.83rem; font-weight:700; color:rgba(255,255,255,.82); margin-bottom:.45rem; letter-spacing:.25px; }
+        .form-ctrl { width:100%; padding:.95rem 1rem; background:rgba(255,255,255,.08); border:2px solid rgba(255,255,255,.12); border-radius:12px; color:#fff; font-size:.95rem; font-family:'Inter',sans-serif; transition:all .3s; }
+        .form-ctrl::placeholder { color:rgba(255,255,255,.35); }
+        .form-ctrl:focus { outline:none; border-color:var(--accent); background:rgba(255,255,255,.12); }
+        .form-ctrl option { background:#0d201f; }
+        textarea.form-ctrl { resize:vertical; min-height:90px; }
+        .btn-modal-submit { width:100%; padding:1.2rem; background:var(--accent); color:#fff; border:none; border-radius:12px; font-weight:800; font-size:1.05rem; cursor:pointer; transition:all .3s; font-family:'Inter',sans-serif; }
+        .btn-modal-submit:hover { background:var(--accent2); transform:translateY(-2px); box-shadow:0 8px 28px rgba(24,161,152,.5); }
+
+        .toast { display:none; position:fixed; bottom:2rem; right:2rem; background:var(--green); color:#fff; padding:1.2rem 2rem; border-radius:16px; font-weight:700; z-index:99999; box-shadow:0 8px 25px rgba(76,175,80,.4); max-width:380px; font-size:.95rem; }
+        .toast.show { display:block; animation:toastIn .4s ease-out; }
+        @keyframes toastIn { from{opacity:0;transform:translateX(100px)} to{opacity:1;transform:translateX(0)} }
+
+        .how-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem; margin-bottom:4rem; }
+        .how-card { background:var(--glass); border:1px solid var(--border); border-radius:20px; padding:2rem; text-align:center; transition:all .3s; }
+        .how-card:hover { border-color:var(--accent); transform:translateY(-5px); }
+        .how-num { width:52px; height:52px; border-radius:50%; background:rgba(24,161,152,.2); border:2px solid rgba(24,161,152,.4); display:flex; align-items:center; justify-content:center; margin:0 auto 1.2rem; font-size:1.4rem; font-weight:800; color:var(--accent); }
+        .how-card h3 { color:var(--white); font-weight:700; margin-bottom:.5rem; font-size:1rem; }
+        .how-card p { color:var(--muted); font-size:.88rem; line-height:1.65; }
+
+        footer { background:rgba(0,0,0,.8); backdrop-filter:blur(20px); color:#fff; padding:3rem 2rem 1.5rem; border-top:1px solid var(--border); margin-top:4rem; }
+        .footer-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2rem; margin-bottom:2rem; }
+        .fs h3 { color:var(--accent); margin-bottom:1rem; font-size:1rem; }
+        .fs ul { list-style:none; }
+        .fs ul li,.fs a { color:var(--muted); text-decoration:none; display:block; margin-bottom:.5rem; font-size:.9rem; transition:color .3s; }
+        .fs a:hover { color:var(--accent); }
+        .footer-bottom { text-align:center; padding-top:2rem; border-top:1px solid var(--border); color:var(--muted); font-size:.85rem; }
+
+        @media(max-width:768px) { .slide-content h1{font-size:2.5rem;} .hero-slideshow{height:420px;} .cta-btns{flex-direction:column;align-items:center;} .form-row{grid-template-columns:1fr;} .items-grid{grid-template-columns:1fr;} }
+        ::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:rgba(255,255,255,.04);} ::-webkit-scrollbar-thumb{background:rgba(24,161,152,.5);border-radius:3px;}
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo-section">
+            <img src="LOGO.jpg" alt="ORYN Logo" class="campus-logo">
+            <a href="home.html" class="brand-name">ORYN <span>CAMPUS</span></a>
+        </div>
+        <a href="home.html" class="btn-back"> Home</a>
+    </nav>
+</header>
+
+<div class="hero-slideshow">
+    <div class="slide active">
+        <img src="lap.jpg" alt="Laptop">
+        <div class="slide-overlay"><div class="slide-content">
+            <h1>Student <span>Marketplace</span></h1>
+            <p>Buy and sell items within the ORYN campus community — safe, fast, and free</p>
+            <div class="cta-btns">
+                <button class="cta-btn primary" onclick="openPostModal()">Post an Item</button>
+                <button class="cta-btn secondary" onclick="document.getElementById('items-section').scrollIntoView({behavior:'smooth'})">Browse Items</button>
+            </div>
+        </div></div>
+    </div>
+    <div class="slide">
+        <img src="text_book.jpg" alt="Textbook">
+        <div class="slide-overlay"><div class="slide-content">
+            <h1>Find <span>Textbooks</span></h1>
+            <p>Save money on course books — buy directly from fellow ORYN students</p>
+            <div class="cta-btns">
+                <button class="cta-btn primary" onclick="filterCat('Textbooks')">Browse Textbooks</button>
+                <button class="cta-btn secondary" onclick="openPostModal()">Sell Yours</button>
+            </div>
+        </div></div>
+    </div>
+    <div class="slide">
+        <img src="apple_touchpad.jpg" alt="Electronics">
+        <div class="slide-overlay"><div class="slide-content">
+            <h1>Electronics and <span>Gadgets</span></h1>
+            <p>Laptops, graphic cards, memory and accessories from verified ORYN students</p>
+            <div class="cta-btns">
+                <button class="cta-btn primary" onclick="filterCat('Electronics')">Browse Electronics</button>
+                <button class="cta-btn secondary" onclick="openPostModal()">List Your Item</button>
+            </div>
+        </div></div>
+    </div>
+    <div class="slide-dots">
+        <div class="dot active" onclick="goSlide(0)"></div>
+        <div class="dot" onclick="goSlide(1)"></div>
+        <div class="dot" onclick="goSlide(2)"></div>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="section-title">How It <span>Works</span></h2>
+    <p class="section-sub">ORYN Marketplace is exclusive to campus students — buy and sell safely within your community</p>
+    <div class="how-grid">
+        <div class="how-card"><div class="how-num">1</div><h3>Post Your Item</h3><p>List anything you want to sell — add a description, price, condition, and your student ID.</p></div>
+        <div class="how-card"><div class="how-num">2</div><h3>Buyers Contact You</h3><p>Interested students send you a message through the campus messaging system directly.</p></div>
+        <div class="how-card"><div class="how-num">3</div><h3>Meet on Campus</h3><p>Arrange a safe handover on campus — Library, Cafe, or the Student Services block.</p></div>
+        <div class="how-card"><div class="how-num">4</div><h3>Complete the Sale</h3><p>Exchange the item and payment in person. Rate the experience to build trust in the community.</p></div>
+    </div>
+    <h2 class="section-title" id="items-section">Current <span>Listings</span></h2>
+    <p class="section-sub">Items listed by ORYN campus students — contact the seller to arrange a handover</p>
+
+    <div class="action-bar">
+        <button class="btn-action" onclick="openPostModal()">Post New Item</button>
+        <button class="btn-action outline" onclick="openMyListings()">My Listings</button>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" id="tab-all" onclick="filterCat('all')">All Items</button>
+        <button class="tab-btn" id="tab-Textbooks" onclick="filterCat('Textbooks')">Textbooks</button>
+        <button class="tab-btn" id="tab-Electronics" onclick="filterCat('Electronics')">Electronics</button>
+        <button class="tab-btn" id="tab-Musical" onclick="filterCat('Musical')">Musical</button>
+        <button class="tab-btn" id="tab-Games" onclick="filterCat('Games')">Games</button>
+    </div>
+
+    <div class="items-grid" id="itemsGrid">
+        <div class="item-card" data-cat="Textbooks">
+            <div class="item-image">
+                <img src="text_book.jpg" alt="Data Structures Textbook">
+                <div class="item-overlay"></div>
+                <span class="price-badge">Rs. 2,500</span>
+                <span class="cond-badge">Good</span>
+            </div>
+            <div class="item-info">
+                <span class="item-cat">Textbooks</span>
+                <div class="item-title">Data Structures Textbook</div>
+                <div class="item-desc">2nd Edition in excellent condition. Minimal pencil notes inside, no major highlights. Perfect for CS Year 2 students.</div>
+                <div class="item-footer">
+                    <div class="item-seller">Sold by <strong>Sarah M.</strong> — 2nd Year CSE</div>
+                    <button class="btn-contact" onclick="openContactModal('Sarah M.','Data Structures Textbook')">Contact</button>
+                </div>
+            </div>
+        </div>
+        <div class="item-card" data-cat="Electronics">
+            <div class="item-image">
+                <img src="memory.jpg" alt="SD Memory Card">
+                <div class="item-overlay"></div>
+                <span class="price-badge">Rs. 1,800</span>
+                <span class="cond-badge">Like New</span>
+            </div>
+            <div class="item-info">
+                <span class="item-cat">Electronics</span>
+                <div class="item-title">128GB SD Memory Card</div>
+                <div class="item-desc">High-speed 128GB SD card, Class 10. Used only once for a photography project. Comes in original packaging with full capacity.</div>
+                <div class="item-footer">
+                    <div class="item-seller">Sold by <strong>Kamal P.</strong> — 3rd Year IT</div>
+                    <button class="btn-contact" onclick="openContactModal('Kamal P.','128GB SD Memory Card')">Contact</button>
+                </div>
+            </div>
+        </div>
+        <div class="item-card" data-cat="Games">
+            <div class="item-image">
+                <img src="chessboard.jpg" alt="Chess Board">
+                <div class="item-overlay"></div>
+                <span class="price-badge">Rs. 3,500</span>
+                <span class="cond-badge">Excellent</span>
+            </div>
+            <div class="item-info">
+                <span class="item-cat">Games</span>
+                <div class="item-title">Wooden Chess Board Set</div>
+                <div class="item-desc">Premium solid wood chess board with hand-carved weighted pieces. Complete set, all pieces present, board in perfect condition.</div>
+                <div class="item-footer">
+                    <div class="item-seller">Sold by <strong>Dinesh R.</strong> — 4th Year Business</div>
+                    <button class="btn-contact" onclick="openContactModal('Dinesh R.','Wooden Chess Board Set')">Contact</button>
+                </div>
+            </div>
+        </div>
+        <div class="item-card" data-cat="Electronics">
+            <div class="item-image">
+                <img src="graphic.jpg" alt="Graphics Card">
+                <div class="item-overlay"></div>
+                <span class="price-badge">Rs. 78,000</span>
+                <span class="cond-badge">Good</span>
+            </div>
+            <div class="item-info">
+                <span class="item-cat">Electronics</span>
+                <div class="item-title">RTX 3060 Graphics Card</div>
+                <div class="item-desc">ASUS Dual RTX 3060 12GB GDDR6. Used for 1.5 years, no mining, well-maintained. Original box included. Great for gaming or ML projects.</div>
+                <div class="item-footer">
+                    <div class="item-seller">Sold by <strong>Nimal F.</strong> — 3rd Year CSE</div>
+                    <button class="btn-contact" onclick="openContactModal('Nimal F.','RTX 3060 Graphics Card')">Contact</button>
+                </div>
+            </div>
+        </div>
+        <div class="item-card" data-cat="Musical">
+            <div class="item-image">
+                <img src="guitar.jpg" alt="Acoustic Guitar">
+                <div class="item-overlay"></div>
+                <span class="price-badge">Rs. 22,000</span>
+                <span class="cond-badge">Excellent</span>
+            </div>
+            <div class="item-info">
+                <span class="item-cat">Musical</span>
+                <div class="item-title">Acoustic Guitar — Full Size</div>
+                <div class="item-desc">Full-size acoustic guitar with cedar top and mahogany body. Rich warm tone. Comes with a padded carry bag and spare strings set.</div>
+                <div class="item-footer">
+                    <div class="item-seller">Sold by <strong>Amara S.</strong> — 2nd Year Arts</div>
+                    <button class="btn-contact" onclick="openContactModal('Amara S.','Acoustic Guitar')">Contact</button>
+                </div>
+            </div>
+        </div>
+        <div class="item-card" data-cat="Electronics">
+            <div class="item-image">
+                <img src="lap.jpg" alt="Laptop">
+                <div class="item-overlay"></div>
+                <span class="price-badge">Rs. 145,000</span>
+                <span class="cond-badge">Like New</span>
+            </div>
+            <div class="item-info">
+                <span class="item-cat">Electronics</span>
+                <div class="item-title">Razer Blade 15 Laptop</div>
+                <div class="item-desc">15.6" FHD 144Hz, Intel i7, 16GB RAM, 512GB SSD, RTX 3070. Purchased 6 months ago. No scratches, full battery health. Charger included.</div>
+                <div class="item-footer">
+                    <div class="item-seller">Sold by <strong>James L.</strong> — Final Year IT</div>
+                    <button class="btn-contact" onclick="openContactModal('James L.','Razer Blade 15 Laptop')">Contact</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card" data-cat="Electronics">
+            <div class="item-image">
+                <img src="apple_touchpad.jpg" alt="Apple Touchpad">
+                <div class="item-overlay"></div>
+                <span class="price-badge">Rs. 18,500</span>
+                <span class="cond-badge">Like New</span>
+            </div>
+            <div class="item-info">
+                <span class="item-cat">Electronics</span>
+                <div class="item-title">Apple Magic Trackpad (White)</div>
+                <div class="item-desc">Apple Magic Trackpad — latest model, white finish, Multi-Touch surface. Used for 3 months only. Includes original box, USB-C cable, and documentation.</div>
+                <div class="item-footer">
+                    <div class="item-seller">Sold by <strong>Priya K.</strong> — 2nd Year Design</div>
+                    <button class="btn-contact" onclick="openContactModal('Priya K.','Apple Magic Trackpad')">Contact</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="modal-overlay" id="postModal" onclick="closeIfBg(event,'postModal')">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('postModal')">X</button>
+        <h2>Post New <span style="color:var(--accent)">Item</span></h2>
+        <p class="modal-sub">List your item for fellow ORYN campus students. Only current students may post listings.</p>
+        <div class="form-group"><label>Item Title</label><input type="text" class="form-ctrl" id="pTitle" placeholder="e.g. Data Structures Textbook 3rd Ed"></div>
+        <div class="form-row">
+            <div class="form-group"><label>Category</label>
+                <select class="form-ctrl" id="pCat">
+                    <option>Textbooks</option>
+                    <option>Electronics</option>
+                    <option>Musical</option>
+                    <option>Games</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Condition</label>
+                <select class="form-ctrl">
+                    <option>Like New</option>
+                    <option>Excellent</option>
+                    <option>Good</option>
+                    <option>Fair</option>
+                    <option>Used</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>Price (Rs.)</label><input type="number" class="form-ctrl" id="pPrice" placeholder="e.g. 5000" min="0"></div>
+            <div class="form-group"><label>Negotiable</label>
+                <select class="form-ctrl">
+                    <option>Yes, negotiable</option>
+                    <option>Fixed price</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group"><label>Description</label><textarea class="form-ctrl" id="pDesc" placeholder="Describe your item — edition, features, included accessories, reason for selling..."></textarea></div>
+        <div class="form-row">
+            <div class="form-group"><label>Your Name</label><input type="text" class="form-ctrl" id="pName" placeholder="Your full name"></div>
+            <div class="form-group"><label>Student ID</label><input type="text" class="form-ctrl" id="pStu" placeholder="e.g. STU2026001"></div>
+        </div>
+        <div class="form-group"><label>Contact Method</label>
+            <select class="form-ctrl">
+                <option>Campus Messaging System</option>
+                <option>WhatsApp</option>
+                <option>Email</option>
+            </select>
+        </div>
+        <button class="btn-modal-submit" onclick="submitPost()">Submit Listing</button>
+    </div>
+</div>
+<div class="modal-overlay" id="contactModal" onclick="closeIfBg(event,'contactModal')">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('contactModal')">X</button>
+        <h2>Contact <span id="cSellerName" style="color:var(--accent)"></span></h2>
+        <p class="modal-sub" id="cItemName"></p>
+        <div class="form-row">
+            <div class="form-group"><label>Your Name</label><input type="text" class="form-ctrl" placeholder="Your full name"></div>
+            <div class="form-group"><label>Your Student ID</label><input type="text" class="form-ctrl" placeholder="e.g. STU2026001"></div>
+        </div>
+        <div class="form-group"><label>Message to Seller</label><textarea class="form-ctrl" placeholder="Hi, I am interested in your item. Is it still available? Can we meet at..."></textarea></div>
+        <div class="form-group"><label>Your Preferred Contact</label>
+            <select class="form-ctrl">
+                <option>Campus Messaging System</option>
+                <option>WhatsApp</option>
+                <option>Email</option>
+            </select>
+        </div>
+        <div class="form-group"><label>Proposed Meetup Location</label>
+            <select class="form-ctrl">
+                <option>ORYN Library — Ground Floor</option>
+                <option>ORYN Cafe</option>
+                <option>Student Services Block</option>
+                <option>Main Entrance Gate</option>
+                <option>To be arranged</option>
+            </select>
+        </div>
+        <button class="btn-modal-submit" onclick="submitContact()">Send Message</button>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+    <div class="footer-grid">
+        <div class="fs">
+            <h3>Marketplace Rules</h3>
+            <ul>
+                <li>Only ORYN students may buy or sell</li>
+                <li>Always meet on campus for safety</li>
+                <li>No counterfeit or prohibited items</li>
+                <li>Report suspicious listings to admin</li>
+            </ul>
+        </div>
+        <div class="fs">
+            <h3>Contact</h3>
+            <ul>
+                
+                <li><a href="mailto:market@oryuncampus.edu">market@oryuncampus.edu</a></li>
+                
+            </ul>
+        </div>
+        <div class="fs">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="home.html">Campus Hub</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 ORYN Student Marketplace. All rights reserved.</p></div>
+</footer>
+
+<script>
+let cur = 0;
+const slides = document.querySelectorAll('.slide');
+const dots   = document.querySelectorAll('.dot');
+function goSlide(n) {
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    cur = n;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+}
+setInterval(() => goSlide((cur + 1) % slides.length), 6000);
+
+function filterCat(cat) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    const activeTab = document.getElementById('tab-' + (cat === 'all' ? 'all' : cat));
+    if (activeTab) activeTab.classList.add('active');
+
+    document.querySelectorAll('.item-card').forEach(card => {
+        if (cat === 'all' || card.dataset.cat === cat) {
+            card.classList.remove('hidden');
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+}
+
+function openPostModal() { document.getElementById('postModal').classList.add('open'); }
+function openContactModal(seller, item) {
+    document.getElementById('cSellerName').textContent = seller;
+    document.getElementById('cItemName').textContent   = 'Enquiring about: ' + item;
+    document.getElementById('contactModal').classList.add('open');
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeIfBg(e, id) { if (e.target.id === id) closeModal(id); }
+
+function submitPost() {
+    const title = document.getElementById('pTitle').value.trim();
+    const name  = document.getElementById('pName').value.trim();
+    const stu   = document.getElementById('pStu').value.trim();
+    if (!title || !name || !stu) { showToast('Please fill in all required fields.'); return; }
+    closeModal('postModal');
+    showToast('Listing submitted! Your item will be reviewed and published within 24 hours.');
+}
+
+function submitContact() {
+    closeModal('contactModal');
+    showToast('Message sent! The seller will respond to you shortly.');
+}
+
+function openMyListings() {
+    showToast('You have no active listings yet. Click Post New Item to get started.');
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4500);
+}
+</script>
+</body>
+</html>

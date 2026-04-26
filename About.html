@@ -1,0 +1,544 @@
+<html>
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Oryn Campus</title>
+  <style>
+   
+
+
+:root {
+  --navy:      #0B1F4B;
+  --navy-deep: #e7edff;
+  --navy-mid:  #165e70;
+  --sky:       #000000;
+  --sky-light: #B8E4F3;
+  --sky-pale:  #1581a8;
+  --white:     #eeeeee;
+  --black:     #0D0D0D;
+  --black-soft:#1C1C1C;
+  --grey:      #100c0c;
+}
+
+html { scroll-behavior: smooth; }
+
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 4rem;
+  box-shadow:transparent;
+}
+
+.logo {
+  
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.logo span { color: var(--sky); }
+
+.nav-links {
+  display: flex;
+  gap: 2.2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.story {
+  background: var(--white);
+  padding: 7rem 4rem;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.story-aside {
+  position: sticky;
+  top: 100px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 1.2rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 28px; height: 2px;
+  background: var(--sky);
+  flex-shrink: 0;
+}
+
+.story-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--black);
+  margin-bottom: 1.8rem;
+}
+
+.story-heading em {
+  font-style: italic;
+  color: var(--navy);
+}
+
+
+
+.year-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--sky-pale);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+
+
+.story-lead {
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--black-soft);
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(11,31,75,0.08);
+}
+
+.story-body {
+  font-size: 0.97rem;
+  line-height: 1.85;
+  color: var(--grey);
+  margin-bottom: 1.5rem;
+}
+
+.highlight-block {
+  background: var(--sky-pale);
+  border-left: 4px solid var(--sky);
+  padding: 1.5rem 2rem;
+  margin: 2.5rem 0;
+}
+
+.highlight-block p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+
+.values {
+  background: var(--sky-pale);
+  padding: 6rem 4rem;
+}
+
+.values-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.values-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  color: var(--black);
+  margin-top: 0.5rem;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.value-card {
+  background: var(--white);
+  padding: 2.5rem 2rem;
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.value-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--navy), var(--sky));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+
+.value-card:hover {
+  box-shadow: 0 12px 40px rgba(11,31,75,0.1);
+  transform: translateY(-4px);
+}
+
+.value-card:hover::before { transform: scaleX(1); }
+
+.value-icon {
+  width: 52px; height: 52px;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+}
+
+.value-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 0.7rem;
+}
+
+.value-desc {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--grey);
+}
+
+
+.milestones {
+  background: var(--navy);
+  padding: 6rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.milestones::before {
+  content: '';
+  position: absolute;
+  right: -100px; top: -100px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(126,200,227,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.milestones-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.milestones-header .section-label { color: var(--sky); }
+.milestones-header .section-label::before { background: var(--sky); }
+
+.milestones-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  color: var(--white);
+  margin-top: 0.5rem;
+}
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 90px;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--sky), rgba(126,200,227,0.1));
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 90px 30px 1fr;
+  gap: 0 1.5rem;
+  align-items: start;
+  padding: 1.5rem 0;
+}
+
+.tl-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--sky);
+  padding-top: 0.1rem;
+  text-align: right;
+}
+
+.tl-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--sky);
+  margin-top: 0.35rem;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.tl-dot::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(126,200,227,0.3);
+}
+
+
+
+.tl-event {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.3rem;
+}
+
+.tl-detail {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ── CAMPUS LIFE STRIP ── */
+.campus-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 240px;
+}
+
+.strip-block {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.strip-block-bg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s;
+}
+
+.strip-block:hover .strip-block-bg { transform: scale(1.05); }
+
+.strip-block:nth-child(1) .strip-block-bg { background: linear-gradient(135deg, #0B1F4B, #163270); }
+.strip-block:nth-child(2) .strip-block-bg { background: linear-gradient(135deg, #163270, #1e4a8a); }
+.strip-block:nth-child(3) .strip-block-bg { background: linear-gradient(135deg, #2d6ea8, #7EC8E3); }
+.strip-block:nth-child(4) .strip-block-bg { background: linear-gradient(135deg, #7EC8E3, #B8E4F3); }
+
+.strip-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+}
+
+.strip-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+
+.strip-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.strip-block:nth-child(4) .strip-label { color: var(--navy-deep); }
+
+.strip-sub {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.55);
+  margin-top: 0.2rem;
+}
+
+.strip-block:nth-child(4) .strip-sub { color: rgba(11,31,75,0.55); }
+
+.about-cta {
+  background: var(--sky-pale);
+  padding: 5rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  border-top: 1px solid rgba(126,200,227,0.3);
+}
+
+.cta-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--black);
+}
+
+.cta-heading em { font-style: italic; color: var(--navy); }
+
+.cta-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-navy {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 0.9rem 2rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-navy:hover { background: var(--navy-deep); transform: translateY(-2px); }
+
+.btn-outline {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--navy);
+  border: 2px solid var(--navy);
+  padding: 0.9rem 2rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-outline:hover { background: var(--navy); color: var(--white); }
+
+
+
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="LOGO" href="#">ORYN CAMPUS</span></a>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+    </ul>
+  </nav>
+  <section class="story" id="story">
+    <div class="story-aside">
+      <div class="section-label">Our Story</div>
+      <h2 class="story-heading">Built on<br><em>Six Decades</em><br>of Learning</h2>
+      <div class="year-tag">2026</div>
+    </div>
+    <div class="story-content">
+      <p class="story-lead">
+        Oryn Campus was founded with a single belief: that every student, regardless of background, deserves access to world-class education in an environment that nurtures both intellect and character.
+      </p>
+      <p class="story-body">
+        What began as a modest institution in 2026 with just three faculties and 200 students has grown into one of the region's most respected centres of academic excellence. Today, Oryn spans 140 acres, houses 14 research centres, and serves a student body drawn from over 80 countries across the globe.
+      </p>
+      <div class="highlight-block">
+        <p>"We do not simply educate for careers. We educate for lives well-lived, for societies well-built, and for a future worth believing in."</p>
+      </div>
+      
+    
+  </section>
+
+ 
+
+  <section class="values">
+    <div class="values-header">
+      <div class="section-label" style="justify-content:center;">What We Stand For</div>
+      <h2 class="values-title">Our Core Values</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🎓</div>
+        <div class="value-title">Academic Excellence</div>
+        <p class="value-desc">We hold learning to the highest standard. Our faculty and students are committed to depth, rigour, and the relentless pursuit of understanding — not just answers.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔬</div>
+        <div class="value-title">Research & Discovery</div>
+        <p class="value-desc">Innovation lives here. With 14 active research centres, Oryn fosters the kind of fearless inquiry that turns questions into knowledge and knowledge into impact.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <div class="value-title">Inclusive Community</div>
+        <p class="value-desc">Our strength comes from our diversity. Students, staff, and faculty from every culture, background, and belief system enrich every experience on campus.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⚖️</div>
+        <div class="value-title">Integrity & Ethics</div>
+        <p class="value-desc">Character matters as much as competence. We cultivate ethical leaders who act with honesty, accountability, and a deep sense of civic responsibility.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌱</div>
+        <div class="value-title">Sustainability</div>
+        <p class="value-desc">We are stewards of the future. Oryn is committed to sustainable practices across all operations — from energy use to curriculum design and beyond.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <div class="value-title">Global Collaboration</div>
+        <p class="value-desc">The world's challenges require the world's minds. We partner with institutions, governments, and organisations across six continents to drive meaningful change.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="about-cta">
+    <h2 class="cta-heading">
+      Ready to Be<br>Part of <em>ORYN's</em><br>Story?
+    </h2>
+    <div>
+      <p style="font-size:0.97rem;line-height:1.8;color:var(--grey);margin-bottom:2rem;">
+        Whether you're a prospective student, a researcher, or simply curious.There's a place for you here. Take the next step and discover what Oryn has to offer.
+      </p>
+      
+    </div>
+  </section>
+
+</body>
+</html>
