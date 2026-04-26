@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facility Booking - ORYN Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --orange: #1a8e92;
+            --green: #174618;
+            --dark: #0a0a0a;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            color: #fff;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .campus-logo {
+            height: 60px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(26, 142, 146, 0.3));
+        }
+        
+        .brand-name {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .brand-name span {
+            color: var(--orange);
+        }
+        
+        .btn-back {
+            padding: 0.75rem 1.5rem;
+            background: rgba(26, 142, 146, 0.2);
+            color: var(--orange);
+            border: 2px solid var(--orange);
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-back:hover {
+            background: var(--orange);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        
+        .hero-slideshow {
+            position: relative;
+            height: 580px;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.75), rgba(26, 142, 146, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .slide-content {
+            text-align: center;
+            color: #fff;
+            max-width: 900px;
+            padding: 2rem;
+            animation: slideUp 1s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+        
+        .slide-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slide-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 1.2rem 3rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .cta-btn.primary {
+            background: var(--orange);
+            color: #fff;
+            border-color: var(--orange);
+        }
+        
+        .cta-btn.primary:hover {
+            background: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 142, 146, 0.4);
+        }
+        
+        .cta-btn.secondary {
+            background: transparent;
+            color: #fff;
+            border-color: #fff;
+        }
+        
+        .cta-btn.secondary:hover {
+            background: #fff;
+            color: #002147;
+            transform: translateY(-3px);
+        }
+        
+        .slide-dots {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 10;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .dot.active {
+            background: var(--orange);
+            width: 35px;
+            border-radius: 6px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title span {
+            color: var(--orange);
+        }
+        
+        .section-sub {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .booking-tabs {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        
+        .tab-btn {
+            padding: 0.9rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .tab-btn:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+        
+        .tab-btn.active {
+            background: var(--orange);
+            border-color: var(--orange);
+            box-shadow: 0 4px 20px rgba(26, 142, 146, 0.4);
+        }
+        
+        .tab-panel {
+            display: none;
+        }
+        
+        .tab-panel.active {
+            display: block;
+        }
+        
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .facility-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .facility-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 12px 40px rgba(26, 142, 146, 0.3);
+            border-color: var(--orange);
+        }
+        
+        .facility-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .facility-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .facility-card:hover .facility-img img {
+            transform: scale(1.08);
+        }
+        
+        .facility-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.7));
+        }
+        
+        .facility-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--orange);
+            color: #fff;
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .facility-info {
+            padding: 1.8rem;
+        }
+        
+        .facility-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .facility-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .facility-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.55);
+        }
+        
+        .btn-book {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(26, 142, 146, 0.2);
+            border: 2px solid var(--orange);
+            color: var(--orange);
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-book:hover {
+            background: var(--orange);
+            color: #fff;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .event-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--orange);
+            box-shadow: 0 12px 40px rgba(26, 142, 146, 0.3);
+        }
+        
+        .event-img {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .event-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .event-card:hover .event-img img {
+            transform: scale(1.08);
+        }
+        
+        .event-date-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--orange);
+            color: #fff;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        
+        .event-category-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .event-info {
+            padding: 1.8rem;
+        }
+        
+        .event-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .event-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .event-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.55);
+            flex-wrap: wrap;
+        }
+        
+        .btn-event-book {
+            width: 100%;
+            padding: 1rem;
+            background: var(--orange);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-event-book:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 142, 146, 0.5);
+        }
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 1px solid rgba(26, 142, 146, 0.3);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 550px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalIn 0.3s ease-out;
+        }
+        
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9)
+            }
+            to {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .modal-close:hover {
+            background: var(--orange);
+        }
+        
+        .modal h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--orange);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .form-input option {
+            background: #1a1a2e;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--orange);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(26, 142, 146, 0.5);
+        }
+        
+        .success-toast {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--green);
+            color: #fff;
+            padding: 1.2rem 2rem;
+            border-radius: 16px;
+            font-weight: 700;
+            z-index: 99999;
+            box-shadow: 0 8px 25px rgba(23, 70, 24, 0.4);
+            max-width: 380px;
+        }
+        
+        .success-toast.show {
+            display: block;
+            animation: slideToast 0.5s ease-out;
+        }
+        
+        @keyframes slideToast {
+            from {
+                opacity: 0;
+                transform: translateX(100px)
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            color: #fff;
+            padding: 3rem 2rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--orange);
+        }
+        
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+        
+        @media(max-width:768px) {
+            .slide-content h1 {
+                font-size: 2.5rem
+            }
+            .hero-slideshow {
+                height: 450px
+            }
+            .form-row {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-section">
+                <img src="LOGO.jpg" alt="ORYN Logo" class="campus-logo" onerror="this.style.display='none'">
+                <a href="home.html" class="brand-name">ORYN <span>CAMPUS</span></a>
+            </div>
+            <a href="home.html" class="btn-back">Home</a>
+        </nav>
+    </header>
+
+    <div class="hero-slideshow">
+        <div class="slide active">
+            <img src="room1.jpeg" alt="Room 1" onerror="this.src='https://placehold.co/1920x580/1a8e92/white?text=ORYN+Campus'">
+            <div class="slide-overlay">
+                <div class="slide-content">
+                    <h1>Reserve Your Space</h1>
+                    <p>Book labs, rooms, sports facilities and campus events with ease</p>
+                    <div class="cta-buttons">
+                        <button class="cta-btn primary" onclick="document.querySelector('.container').scrollIntoView({behavior:'smooth'})">Book a Facility</button>
+                        <button class="cta-btn secondary" onclick="switchTab('events')">View Events</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="lab1.jpeg" alt="Lab" onerror="this.src='https://placehold.co/1920x580/1a8e92/white?text=Modern+Labs'">
+            <div class="slide-overlay">
+                <div class="slide-content">
+                    <h1>World-Class Labs</h1>
+                    <p>State-of-the-art computer labs and research facilities at your fingertips</p>
+                    <div class="cta-buttons">
+                        <button class="cta-btn primary" onclick="switchTab('labs')">Book a Lab</button>
+                        <button class="cta-btn secondary" onclick="switchTab('rooms')">Meeting Rooms</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-dots">
+            <div class="dot active" onclick="goToSlide(0)"></div>
+            <div class="dot" onclick="goToSlide(1)"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">Book <span>Campus Facilities</span></h2>
+        <p class="section-sub">Select a category, browse facilities, and reserve your spot in seconds</p>
+
+        <div class="booking-tabs">
+            <button class="tab-btn active" onclick="switchTab('all')">All</button>
+            <button class="tab-btn" onclick="switchTab('labs')">Labs</button>
+            <button class="tab-btn" onclick="switchTab('rooms')">Rooms</button>
+            <button class="tab-btn" onclick="switchTab('sports')">Sports</button>
+            <button class="tab-btn" onclick="switchTab('venues')">Venues</button>
+            <button class="tab-btn" onclick="switchTab('events')">Events</button>
+        </div>
+
+        <div id="panel-all" class="tab-panel active">
+            <div class="facilities-grid" id="facilitiesGrid">
+            </div>
+        </div>
+        <div id="panel-labs" class="tab-panel">
+            <div class="facilities-grid" id="labsGrid"></div>
+        </div>
+        <div id="panel-rooms" class="tab-panel">
+            <div class="facilities-grid" id="roomsGrid"></div>
+        </div>
+        <div id="panel-sports" class="tab-panel">
+            <div class="facilities-grid" id="sportsGrid"></div>
+        </div>
+        <div id="panel-venues" class="tab-panel">
+            <div class="facilities-grid" id="venuesGrid"></div>
+        </div>
+        <div id="panel-events" class="tab-panel">
+            <div class="events-grid" id="eventsGrid"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">X</button>
+            <h2>Book <span id="modalFacilityName" style="color:var(--orange)"></span></h2>
+            <p class="modal-subtitle" id="modalFacilityDetails"></p>
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+                <input type="hidden" id="facilityId" value="">
+                <div class="form-group"><label>Your Full Name</label><input type="text" id="fullName" class="form-input" required placeholder="e.g. Kamal Perera"></div>
+                <div class="form-group"><label>Student ID / User ID</label><input type="text" id="userId" class="form-input" required placeholder="e.g. STU2026001"></div>
+                <div class="form-group"><label>Purpose of Booking</label><input type="text" id="purpose" class="form-input" required placeholder="e.g. Group Study, Project Meeting"></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Date</label><input type="date" id="bookingDate" class="form-input" required></div>
+                    <div class="form-group"><label>No. of People</label><input type="number" id="peopleCount" class="form-input" required min="1" placeholder="e.g. 10"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Start Time</label><input type="time" id="startTime" class="form-input" required></div>
+                    <div class="form-group"><label>End Time</label><input type="time" id="endTime" class="form-input" required></div>
+                </div>
+                <div class="form-group"><label>Additional Requirements</label><input type="text" id="requirements" class="form-input" placeholder="e.g. Projector, Whiteboard, Audio"></div>
+                <button type="submit" class="btn-submit">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal-overlay" id="eventModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeEventModal()">X</button>
+            <h2>Register: <span id="modalEventName" style="color:var(--orange)"></span></h2>
+            <p class="modal-subtitle" id="modalEventDetails"></p>
+            <form id="eventForm" onsubmit="submitEventBooking(event)">
+                <div class="form-group"><label>Full Name</label><input type="text" id="eventFullName" class="form-input" required placeholder="e.g. Kamal Perera"></div>
+                <div class="form-group"><label>Student ID</label><input type="text" id="eventStudentId" class="form-input" required placeholder="e.g. STU2026001"></div>
+                <div class="form-group"><label>Email Address</label><input type="email" id="eventEmail" class="form-input" required placeholder="student@oryuncampus.edu"></div>
+                <div class="form-group"><label>Faculty / Department</label><input type="text" id="eventFaculty" class="form-input" required placeholder="e.g. Faculty of Engineering"></div>
+                <input type="hidden" id="eventId" value="">
+                <button type="submit" class="btn-submit">Register Now</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="success-toast" id="successToast"></div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Booking Hours</h3>
+                <p>Mon to Fri: 7AM to 7PM<br>Sat to Sun: 8AM to 5PM</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3><a href="mailto:booking@oryuncampus.edu">booking@oryuncampus.edu</a></div>
+            <div class="footer-section">
+                <h3>Quick Links</h3><a href="home.html">Campus Hub</a><a href="fitness.html">Fitness Center</a><a href="LIBRARY.html">Library</a><a href="transit.html">Transit</a></div>
+        </div>
+        <div class="footer-bottom">
+            <p>2026 ORYN Campus Booking System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = 'http://localhost:5500/api';
+
+        let facilitiesData = [];
+        let eventsData = [];
+
+        async function fetchFacilities() {
+            try {
+                const response = await fetch(`${API_BASE}/facilities`);
+                const result = await response.json();
+
+                if (result.success && result.facilities) {
+                    facilitiesData = result.facilities;
+                    renderFacilitiesByCategory('all');
+                } else {
+                    console.warn('No facilities data from API, using fallback');
+                    useFallbackFacilities();
+                }
+            } catch (error) {
+                console.error('Error fetching facilities:', error);
+                useFallbackFacilities();
+            }
+        }
+
+        async function fetchEvents() {
+            try {
+                const response = await fetch(`${API_BASE}/events`);
+                const result = await response.json();
+
+                if (result.success && result.events) {
+                    eventsData = result.events;
+                    renderEvents();
+                } else {
+                    console.warn('No events data from API, using fallback');
+                    useFallbackEvents();
+                }
+            } catch (error) {
+                console.error('Error fetching events:', error);
+                useFallbackEvents();
+            }
+        }
+
+        function useFallbackFacilities() {
+            facilitiesData = [{
+                id: 1,
+                name: 'Computer Lab A',
+                category: 'labs',
+                description: '40 high-performance workstations with latest software',
+                capacity: 40,
+                is_available: true,
+                timing: '8AM to 6PM',
+                image: 'computer_lab.jpg'
+            }, {
+                id: 2,
+                name: 'Research Lab',
+                category: 'labs',
+                description: 'Specialized research environment with advanced equipment',
+                capacity: 20,
+                is_available: true,
+                timing: '9AM to 5PM',
+                image: 'gym.jpg'
+            }, {
+                id: 3,
+                name: 'Meeting Room 1',
+                category: 'rooms',
+                description: 'Professional meeting space with 4K projector',
+                capacity: 15,
+                is_available: true,
+                timing: '24/7',
+                image: 'Auditorium.jpg'
+            }, {
+                id: 4,
+                name: 'Sports Hall',
+                category: 'sports',
+                description: 'Multi-purpose indoor hall for basketball, badminton',
+                capacity: 100,
+                is_available: true,
+                timing: '6AM to 7PM',
+                image: 'cafe1.jpg'
+            }, {
+                id: 5,
+                name: 'Main Auditorium',
+                category: 'venues',
+                description: '500-seat auditorium with professional A/V',
+                capacity: 500,
+                is_available: true,
+                timing: '8AM to 8PM',
+                image: 'cafe1.jpeg'
+            }, {
+                id: 6,
+                name: 'Photography Studio',
+                category: 'venues',
+                description: 'Professional lighting rig and camera equipment',
+                capacity: 10,
+                is_available: true,
+                timing: '9AM to 6PM',
+                image: 'room5.jpeg'
+            }, {
+                id: 7,
+                name: 'Computer Lab B',
+                category: 'labs',
+                description: 'Multimedia lab with graphic design stations',
+                capacity: 30,
+                is_available: true,
+                timing: '8AM to 8PM',
+                image: 'lab3.jpeg'
+            }, {
+                id: 8,
+                name: 'Conference Room 2',
+                category: 'rooms',
+                description: 'Spacious conference room with dual screens',
+                capacity: 25,
+                is_available: true,
+                timing: '8AM to 10PM',
+                image: 'room1.jpeg'
+            }, {
+                id: 9,
+                name: 'Outdoor Courts',
+                category: 'sports',
+                description: 'Tennis and multi-sport outdoor courts',
+                capacity: 20,
+                is_available: true,
+                timing: '6AM to 8PM',
+                image: 'sport2.jpeg'
+            }];
+            renderFacilitiesByCategory('all');
+        }
+
+        function useFallbackEvents() {
+            eventsData = [{
+                id: 1,
+                name: 'ORYN Tech Summit 2026',
+                event_date: '2026-04-15',
+                time: '9AM to 5PM',
+                venue: 'Main Auditorium',
+                description: 'Annual technology showcase featuring student projects',
+                image: 'event1.jpeg',
+                category: 'Tech',
+                max_participants: 200,
+                current_registrations: 45
+            }, {
+                id: 2,
+                name: 'Cultural Night 2026',
+                event_date: '2026-04-22',
+                time: '6PM to 10PM',
+                venue: 'Outdoor Stage',
+                description: 'A spectacular evening of performances and cultural exchange',
+                image: 'event2.jpeg',
+                category: 'Culture',
+                max_participants: 300,
+                current_registrations: 120
+            }, {
+                id: 3,
+                name: 'Annual Career Fair',
+                event_date: '2026-05-05',
+                time: '10AM to 4PM',
+                venue: 'Sports Hall',
+                description: 'Connect with 80+ leading companies',
+                image: 'event3.jpeg',
+                category: 'Careers',
+                max_participants: 500,
+                current_registrations: 250
+            }];
+            renderEvents();
+        }
+
+        function renderFacilitiesByCategory(category = 'all') {
+            const filtered = category === 'all' ? facilitiesData : facilitiesData.filter(f => f.category === category);
+            const containerId = category === 'all' ? 'facilitiesGrid' : `${category}Grid`;
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:3rem;">No facilities found in this category</div>';
+                return;
+            }
+
+            container.innerHTML = filtered.map(f => `
+                <div class="facility-card">
+                    <div class="facility-img">
+                        <img src="${f.image || 'room1.jpeg'}" alt="${f.name}" onerror="this.src='https://placehold.co/400x200/1a8e92/white?text=${f.name}'">
+                        <div class="facility-img-overlay"></div>
+                        <span class="facility-badge">${f.is_available ? 'AVAILABLE' : 'BOOKED'}</span>
+                    </div>
+                    <div class="facility-info">
+                        <div class="facility-name">${f.name}</div>
+                        <div class="facility-desc">${f.description}</div>
+                        <div class="facility-meta">
+                            <span>${f.timing || 'Flexible hours'}</span>
+                            <span>${f.capacity} seats</span>
+                        </div>
+                        <button class="btn-book" onclick="openBookingModal(${f.id}, '${f.name}', 'Capacity: ${f.capacity} people | ${f.timing || 'Flexible hours'}')" ${!f.is_available ? 'disabled style="opacity:0.5;cursor:not-allowed"' : ''}>
+                            ${f.is_available ? 'Book Now' : 'Not Available'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderEvents() {
+            const container = document.getElementById('eventsGrid');
+            if (!container) return;
+
+            if (eventsData.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:3rem;">No upcoming events found</div>';
+                return;
+            }
+
+            container.innerHTML = eventsData.map(e => `
+                <div class="event-card">
+                    <div class="event-img">
+                        <img src="${e.image || 'event1.jpeg'}" alt="${e.name}" onerror="this.src='https://placehold.co/400x220/1a8e92/white?text=${e.name}'">
+                        <span class="event-date-badge">${new Date(e.event_date).toLocaleDateString()}</span>
+                        <span class="event-category-badge">${e.category || 'Event'}</span>
+                    </div>
+                    <div class="event-info">
+                        <div class="event-title">${e.name}</div>
+                        <div class="event-desc">${e.description}</div>
+                        <div class="event-meta">
+                            <span>📍 ${e.venue || 'Campus'}</span>
+                            <span>🕒 ${e.time || 'TBA'}</span>
+                            <span>👥 ${e.current_registrations || 0}/${e.max_participants || '∞'}</span>
+                        </div>
+                        <button class="btn-event-book" onclick="openEventModal(${e.id}, '${e.name}', '${new Date(e.event_date).toLocaleDateString()} — ${e.time || 'TBA'} — ${e.venue || 'Campus'}')">
+                            Register Now
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        let currentFacilityId = null;
+
+        function openBookingModal(facilityId, name, details) {
+            currentFacilityId = facilityId;
+            document.getElementById('facilityId').value = facilityId;
+            document.getElementById('modalFacilityName').textContent = name;
+            document.getElementById('modalFacilityDetails').textContent = details;
+            document.getElementById('bookingModal').classList.add('active');
+        }
+
+        async function submitBooking(e) {
+            e.preventDefault();
+
+            const bookingData = {
+                user_id: parseInt(document.getElementById('userId').value),
+                facility_id: currentFacilityId,
+                booking_date: document.getElementById('bookingDate').value,
+                start_time: document.getElementById('startTime').value,
+                end_time: document.getElementById('endTime').value,
+                purpose: document.getElementById('purpose').value
+            };
+
+            if (!bookingData.user_id || !bookingData.facility_id || !bookingData.booking_date || !bookingData.start_time || !bookingData.end_time) {
+                showToast('Please fill all required fields', 'error');
+                return;
+            }
+
+            const submitBtn = document.querySelector('#bookingForm .btn-submit');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading-spinner"></span> Booking...';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/facilities/book`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast(`✅ ${result.message}`, 'success');
+                    closeModal();
+                    document.getElementById('bookingForm').reset();
+                    // Refresh facilities to update availability
+                    await fetchFacilities();
+                } else {
+                    showToast(`❌ Booking failed: ${result.message || 'Unknown error'}`, 'error');
+                }
+            } catch (error) {
+                console.error('Booking error:', error);
+                showToast(`❌ Cannot connect to server. Please make sure backend is running on port 5500`, 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        let currentEventId = null;
+
+        function openEventModal(eventId, name, details) {
+            currentEventId = eventId;
+            document.getElementById('eventId').value = eventId;
+            document.getElementById('modalEventName').textContent = name;
+            document.getElementById('modalEventDetails').textContent = details;
+            document.getElementById('eventModal').classList.add('active');
+        }
+
+        async function submitEventBooking(e) {
+            e.preventDefault();
+
+            const registrationData = {
+                user_id: parseInt(document.getElementById('eventStudentId').value),
+                event_id: currentEventId
+            };
+
+            const submitBtn = document.querySelector('#eventForm .btn-submit');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading-spinner"></span> Registering...';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/events/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(registrationData)
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast(`✅ ${result.message}`, 'success');
+                    closeEventModal();
+                    document.getElementById('eventForm').reset();
+                    await fetchEvents();
+                } else {
+                    showToast(`❌ Registration failed: ${result.message || 'Unknown error'}`, 'error');
+                }
+            } catch (error) {
+                console.error('Event registration error:', error);
+                showToast(`❌ Cannot connect to server. Please make sure backend is running on port 5500`, 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+        }
+
+        function closeEventModal() {
+            document.getElementById('eventModal').classList.remove('active');
+        }
+
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('successToast');
+            toast.style.background = type === 'error' ? '#dc2626' : 'var(--green)';
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4500);
+        }
+
+        function switchTab(tabId) {
+            const panels = ['all', 'labs', 'rooms', 'sports', 'venues', 'events'];
+            panels.forEach(id => {
+                const panel = document.getElementById(`panel-${id}`);
+                if (panel) panel.classList.remove('active');
+            });
+            document.getElementById(`panel-${tabId}`).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach((btn) => {
+                const btnText = btn.innerText.toLowerCase();
+                if ((tabId === 'all' && btnText === 'all') || (tabId === btnText) || (tabId === 'venues' && btnText === 'venues')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            if (tabId === 'events') {
+                renderEvents();
+            } else {
+                renderFacilitiesByCategory(tabId === 'all' ? 'all' : tabId);
+            }
+        }
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(i) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            currentSlide = (i + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function goToSlide(i) {
+            showSlide(i);
+        }
+
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5500);
+
+        document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
+        }));
+        async function checkBackend() {
+            try {
+                const res = await fetch(`${API_BASE}/test`);
+                const data = await res.json();
+                console.log('✅ Backend connected:', data);
+                showToast('✅ Connected to server', 'success');
+                return true;
+            } catch (err) {
+                console.warn('⚠️ Backend not reachable, using demo mode. Start server on port 5500');
+                showToast('⚠️ Demo mode: Backend not connected. Using sample data.', 'error');
+                return false;
+            }
+        }
+
+        async function init() {
+            await checkBackend();
+            await fetchFacilities();
+            await fetchEvents();
+        }
+
+        document.getElementById('bookingDate').valueAsDate = new Date();
+
+        init();
+    </script>
+</body>
+
+</html>

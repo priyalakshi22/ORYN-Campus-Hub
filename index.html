@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CINEC Campus Hub — Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+         :root {
+            --primary-dark: #0a2540;
+            --primary-blue: #1e4d7b;
+            --accent-gold: #d4a574;
+            --accent-coral: #e07856;
+            --neutral-100: #ffffff;
+            --neutral-200: #f5f7fa;
+            --neutral-300: #e1e8ed;
+            --neutral-700: #2c3e50;
+            --neutral-900: #0f1419;
+            --font-display: 'Fraunces', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --shadow-sm: 0 2px 8px rgba(10, 37, 64, .08);
+            --shadow-md: 0 4px 16px rgba(10, 37, 64, .12);
+            --shadow-lg: 0 8px 32px rgba(10, 37, 64, .16);
+        }
+        
+        html,
+        body {
+            height: 100%;
+            font-family: var(--font-body);
+            background: var(--neutral-200);
+            color: var(--neutral-700);
+        }
+        
+        .top-bar {
+            background: var(--primary-dark);
+            color: var(--neutral-100);
+            padding: .5rem 0;
+            font-size: .875rem;
+        }
+        
+        .top-bar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-links a {
+            color: var(--neutral-100);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            opacity: .9;
+            transition: opacity .3s;
+        }
+        
+        .top-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        header {
+            background: var(--neutral-100);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            text-decoration: none;
+            letter-spacing: -.02em;
+        }
+        
+        .logo span {
+            color: var(--accent-gold);
+        }
+        
+        .nav-right {
+            font-size: .9rem;
+            color: var(--neutral-700);
+        }
+        
+        .nav-right a {
+            color: var(--primary-blue);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color .2s;
+        }
+        
+        .nav-right a:hover {
+            color: var(--accent-coral);
+        }
+        
+        .hero-strip {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+            color: var(--neutral-100);
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-strip::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .hero-strip-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            animation: fadeInUp .8s ease-out .2s both;
+        }
+        
+        .hero-strip h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -.03em;
+            margin-bottom: .5rem;
+        }
+        
+        .hero-strip p {
+            opacity: .9;
+            font-size: 1.1rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .page-body {
+            display: flex;
+            justify-content: center;
+            padding: 3rem 2rem;
+        }
+        
+        .login-card {
+            background: var(--neutral-100);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            width: 100%;
+            max-width: 480px;
+            animation: fadeInUp .8s ease-out .3s both;
+        }
+        
+        .accent-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-coral));
+        }
+        
+        .card-top {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+            padding: 2rem 2rem 1.75rem;
+            color: white;
+        }
+        
+        .card-top-logo {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .card-top-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, .15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        
+        .card-top-logo strong {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .card-top-logo span {
+            font-size: .75rem;
+            opacity: .6;
+            display: block;
+        }
+        
+        .card-top h2 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            margin-bottom: .35rem;
+        }
+        
+        .card-top p {
+            opacity: .7;
+            font-size: .9rem;
+        }
+        
+        .card-body {
+            padding: 2rem;
+        }
+        
+        .role-tabs {
+            display: flex;
+            background: var(--neutral-200);
+            border: 2px solid var(--neutral-300);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 1.5rem;
+            gap: 4px;
+        }
+        
+        .role-tab {
+            flex: 1;
+            padding: 9px 6px;
+            border: none;
+            background: transparent;
+            color: var(--neutral-700);
+            font-family: var(--font-body);
+            font-size: .8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 9px;
+            transition: all .25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            opacity: .55;
+        }
+        
+        .role-tab.active {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+            color: white;
+            opacity: 1;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .fg {
+            margin-bottom: 1.1rem;
+        }
+        
+        .fg label {
+            display: block;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            color: var(--primary-dark);
+            opacity: .6;
+            margin-bottom: .45rem;
+        }
+        
+        .iw {
+            position: relative;
+        }
+        
+        .ii {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 15px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            background: var(--neutral-200);
+            border: 2px solid var(--neutral-300);
+            border-radius: 10px;
+            color: var(--neutral-900);
+            font-family: var(--font-body);
+            font-size: .9rem;
+            padding: 11px 13px 11px 40px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+        }
+        
+        input:focus {
+            border-color: var(--accent-gold);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, .18);
+        }
+        
+        .eye-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: rgba(44, 62, 80, .35);
+            font-size: 14px;
+            z-index: 1;
+        }
+        
+        .eye-btn:hover {
+            color: var(--accent-coral);
+        }
+        
+        .row-between {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: .25rem 0 1.5rem;
+        }
+        
+        .remember-lbl {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: .82rem;
+            color: var(--neutral-700);
+            cursor: pointer;
+        }
+        
+        .remember-lbl input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            accent-color: var(--accent-gold);
+        }
+        
+        .forgot-link {
+            color: var(--primary-blue);
+            font-size: .82rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color .2s;
+        }
+        
+        .forgot-link:hover {
+            color: var(--accent-coral);
+        }
+        
+        .btn-signin {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-family: var(--font-body);
+            font-size: .95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s;
+            box-shadow: 0 6px 20px rgba(10, 37, 64, .3);
+        }
+        
+        .btn-signin:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .btn-signin:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 28px rgba(10, 37, 64, .4);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 1.1rem 0;
+            color: var(--neutral-300);
+            font-size: .75rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--neutral-300);
+        }
+        
+        .btn-register {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 2px solid var(--neutral-300);
+            border-radius: 10px;
+            color: var(--neutral-700);
+            font-family: var(--font-body);
+            font-size: .9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all .2s;
+        }
+        
+        .btn-register:hover {
+            border-color: var(--accent-gold);
+            color: var(--primary-dark);
+            background: rgba(212, 165, 116, .07);
+        }
+        
+        .card-footer {
+            text-align: center;
+            color: var(--neutral-700);
+            opacity: .45;
+            font-size: .78rem;
+            margin-top: 1.25rem;
+        }
+        
+        footer {
+            background: var(--primary-dark);
+            color: var(--neutral-100);
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-family: var(--font-display);
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: .5rem;
+        }
+        
+        .footer-section a {
+            color: var(--neutral-100);
+            text-decoration: none;
+            opacity: .8;
+            transition: opacity .3s;
+        }
+        
+        .footer-section a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            text-align: center;
+            opacity: .7;
+            font-size: .9rem;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .hero-strip h1 {
+                font-size: 1.75rem;
+            }
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">ORYN<span>Hub</span></a>
+            <div class="nav-right">
+                Don't have an account? <a href="register.html">Register here →</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero-strip">
+        <div class="hero-strip-content">
+            <h1>Student Portal</h1>
+            <p>Sign in to access your personalised Oryn Campus</p>
+        </div>
+    </div>
+
+    <div class="page-body">
+        <div class="login-card">
+            <div class="accent-bar"></div>
+            <div class="card-top">
+                <div class="card-top-logo">
+                    <div class="card-top-icon">🎓</div>
+                    <div>
+                        <strong>Oryn Campus</strong>
+                        <span>Academic Management System</span>
+                    </div>
+                </div>
+                <h2>Sign In</h2>
+                <p>Enter your Oryn credentials to continue</p>
+            </div>
+
+            <div class="card-body">
+                <div class="role-tabs">
+                    <button class="role-tab active">🎓 Student</button>
+                </div>
+
+                <div class="fg">
+                    <label>Index Number</label>
+                    <div class="iw">
+                        <span class="ii">👤</span>
+                        <input type="text" id="indexInput" placeholder="e.g. EG/2021/IT/0142" autocomplete="off" />
+                    </div>
+                </div>
+
+                <div class="fg">
+                    <label>Password</label>
+                    <div class="iw">
+                        <span class="ii">🔒</span>
+                        <input type="password" id="passwordInput" placeholder="Enter your password" />
+                        <button type="button" class="eye-btn" onclick="togglePassword()" tabindex="-1">👁</button>
+                    </div>
+                </div>
+
+                <div class="row-between">
+                    <label class="remember-lbl">
+                        <input type="checkbox" id="rememberMe" /> Remember me
+                    </label>
+                    <a href="#" class="forgot-link" onclick="forgotPassword(event)">Forgot password?</a>
+                </div>
+
+                <button class="btn-signin" id="loginBtn" onclick="handleLogin()">
+                    Sign In to Portal →
+                </button>
+
+                <div class="divider">or</div>
+
+                <button class="btn-register" onclick="window.location.href='register.html'">
+                    🏫 &nbsp; Create an Account
+                </button>
+
+                <p class="card-footer">🔒 Protected by SSL &nbsp;·&nbsp; IT Support: 011-2 413 000</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Academic Calendar</a></li>
+                    <li><a href="#">Campus Directory</a></li>
+                    <li><a href="#">Campus Map</a></li>
+                    <li><a href="#">Policies</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Student Services</h3>
+                <ul>
+                    <li><a href="#">Academic Advising</a></li>
+                    <li><a href="#">Counseling</a></li>
+                    <li><a href="#">Financial Aid</a></li>
+                    <li><a href="#">Housing</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">IT Help Desk</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 CINEC Campus Hub. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5500/api';
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const eyeBtn = document.querySelector('.eye-btn');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeBtn.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                eyeBtn.textContent = '👁';
+            }
+        }
+
+        function forgotPassword(event) {
+            event.preventDefault();
+            alert('Please contact IT support to reset your password.\nEmail: support@cinec.edu\nPhone: +94 11-2 413 000');
+        }
+
+        async function handleLogin() {
+            const indexNo = document.getElementById('indexInput').value.trim();
+            const password = document.getElementById('passwordInput').value.trim();
+            const loginBtn = document.getElementById('loginBtn');
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            if (!indexNo || !password) {
+                alert('Please enter your index number and password');
+                return;
+            }
+
+            if (rememberMe) {
+                localStorage.setItem('remembered_index', indexNo);
+            } else {
+                localStorage.removeItem('remembered_index');
+            }
+
+            const originalText = loginBtn.innerHTML;
+            loginBtn.innerHTML = '<span class="loading-spinner"></span> Signing in...';
+            loginBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        indexNo,
+                        password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    localStorage.setItem('student_name', data.user.fullName);
+                    localStorage.setItem('student_index_no', data.user.indexNo);
+                    localStorage.setItem('student_role', data.user.role);
+
+                    alert(`Welcome back, ${data.user.fullName}!`);
+                    window.location.href = 'home.html';
+                } else {
+                    alert(data.message || 'Login failed. Please check your credentials.');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Cannot connect to server. Please make sure the backend is running on port 5500.');
+            } finally {
+                loginBtn.innerHTML = originalText;
+                loginBtn.disabled = false;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const rememberedIndex = localStorage.getItem('remembered_index');
+            if (rememberedIndex) {
+                document.getElementById('indexInput').value = rememberedIndex;
+                document.getElementById('rememberMe').checked = true;
+            }
+        });
+
+        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+        document.getElementById('indexInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORYN Clubs - Join Your Community</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --orange: #F97316;
+            --orange-dim: rgba(249, 115, 22, 0.15);
+            --orange-glow: rgba(249, 115, 22, 0.4);
+            --green: #4CAF50;
+            --white: #fff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --muted: rgba(255, 255, 255, 0.62);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a, #161616, #0a0a0a);
+            color: #e8e8e8;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .campus-logo {
+            height: 55px;
+            object-fit: contain;
+        }
+        
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+        }
+        
+        .brand-name span {
+            color: var(--orange);
+        }
+        
+        .btn-back {
+            padding: .7rem 1.5rem;
+            background: rgba(249, 115, 22, 0.2);
+            color: var(--orange);
+            border: 2px solid var(--orange);
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all .3s;
+        }
+        
+        .btn-back:hover {
+            background: var(--orange);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        .hero-slideshow {
+            position: relative;
+            height: 550px;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .hslide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        .hslide.active {
+            opacity: 1;
+        }
+        
+        .hslide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(.65);
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, .7), rgba(249, 115, 22, .2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .hero-tag {
+            display: inline-block;
+            padding: .4rem 1.2rem;
+            background: rgba(249, 115, 22, .2);
+            border: 1px solid var(--orange);
+            border-radius: 50px;
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content h1 span {
+            color: var(--orange);
+        }
+        
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: .9;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-stat .num {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--orange);
+        }
+        
+        .hero-stat .lbl {
+            font-size: .7rem;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: .8rem 2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            font-size: .9rem;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all .3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-btn.primary {
+            background: var(--orange);
+            color: var(--white);
+            border-color: var(--orange);
+        }
+        
+        .cta-btn.primary:hover {
+            background: transparent;
+            color: var(--orange);
+            transform: translateY(-2px);
+        }
+        
+        .cta-btn.secondary {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+        
+        .cta-btn.secondary:hover {
+            background: var(--white);
+            color: #0a0a0a;
+            transform: translateY(-2px);
+        }
+        
+        .slide-dots {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: .6rem;
+            z-index: 10;
+        }
+        
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .4);
+            cursor: pointer;
+            transition: all .3s;
+        }
+        
+        .dot.active {
+            background: var(--orange);
+            width: 28px;
+            border-radius: 6px;
+        }
+        
+        .stats-bar {
+            background: rgba(249, 115, 22, .08);
+            border-top: 1px solid rgba(249, 115, 22, .2);
+            border-bottom: 1px solid rgba(249, 115, 22, .2);
+            padding: 1.2rem 2rem;
+        }
+        
+        .stats-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-item .val {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--orange);
+        }
+        
+        .stat-item .key {
+            font-size: .7rem;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+        
+        .section-label {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--orange);
+            text-transform: uppercase;
+            margin-bottom: .5rem;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 2rem;
+        }
+        
+        .section-title span {
+            color: var(--orange);
+        }
+        
+        .club-img-tabs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cit {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            position: relative;
+            aspect-ratio: 3/4;
+            transition: all .3s;
+            background: var(--glass);
+        }
+        
+        .cit:hover {
+            transform: translateY(-5px);
+            border-color: var(--orange);
+        }
+        
+        .cit.active {
+            border-color: var(--orange);
+            box-shadow: 0 0 0 2px rgba(249, 115, 22, .4);
+        }
+        
+        .cit img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cit-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, .7) 0%, transparent 50%);
+        }
+        
+        .cit-label {
+            position: absolute;
+            bottom: .6rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--white);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+        }
+        
+        .club-panel {
+            display: none;
+        }
+        
+        .club-panel.active {
+            display: block;
+        }
+        
+        .club-detail {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+        }
+        
+        .cd-img {
+            position: relative;
+            min-height: 300px;
+            overflow: hidden;
+        }
+        
+        .cd-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cd-info {
+            padding: 2rem;
+        }
+        
+        .cd-tag {
+            display: inline-block;
+            background: rgba(249, 115, 22, .2);
+            border: 1px solid rgba(249, 115, 22, .4);
+            color: var(--orange);
+            padding: .2rem .8rem;
+            border-radius: 20px;
+            font-size: .7rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .cd-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: .5rem;
+        }
+        
+        .cd-category {
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+        
+        .cd-desc {
+            color: var(--muted);
+            font-size: .9rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+        
+        .cd-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .cd-stat .v {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--orange);
+        }
+        
+        .cd-stat .k {
+            font-size: .65rem;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+        
+        .btn-join-main {
+            padding: .8rem 2rem;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .3s;
+        }
+        
+        .btn-join-main:hover {
+            background: #e05a00;
+            transform: translateY(-2px);
+        }
+        
+        .join-form-wrap {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .join-form-wrap h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: .3rem;
+        }
+        
+        .join-form-wrap .jf-sub {
+            color: var(--muted);
+            font-size: .85rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: .8rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, .8);
+            margin-bottom: .3rem;
+        }
+        
+        .form-ctrl {
+            width: 100%;
+            padding: .8rem;
+            background: rgba(255, 255, 255, .08);
+            border: 2px solid rgba(255, 255, 255, .12);
+            border-radius: 10px;
+            color: var(--white);
+            font-size: .9rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-ctrl:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+        
+        textarea.form-ctrl {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .btn-submit-form {
+            width: 100%;
+            padding: 1rem;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .3s;
+            margin-top: .5rem;
+        }
+        
+        .btn-submit-form:hover:not(:disabled) {
+            background: #e05a00;
+            transform: translateY(-2px);
+        }
+        
+        .btn-submit-form:disabled {
+            background: rgba(249, 115, 22, 0.5);
+            cursor: not-allowed;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 3000;
+            background: #1a3a1a;
+            border: 1px solid var(--green);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            transform: translateX(200%);
+            transition: transform .3s ease;
+            max-width: 320px;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast-title {
+            font-size: .9rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: .2rem;
+        }
+        
+        .toast-msg {
+            font-size: .75rem;
+            color: rgba(255, 255, 255, .7);
+        }
+        
+        .toast.error {
+            background: #4a1a1a;
+            border-color: #dc2626;
+        }
+        
+        .toast.error .toast-title {
+            color: #dc2626;
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, .8);
+            padding: 2rem 1.5rem 1rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .fs h3 {
+            color: var(--orange);
+            margin-bottom: .8rem;
+            font-size: .9rem;
+        }
+        
+        .fs ul {
+            list-style: none;
+        }
+        
+        .fs ul li,
+        .fs a {
+            color: var(--muted);
+            text-decoration: none;
+            display: block;
+            margin-bottom: .3rem;
+            font-size: .8rem;
+            transition: color .3s;
+        }
+        
+        .fs a:hover {
+            color: var(--orange);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: .7rem;
+        }
+        
+        @media(max-width:768px) {
+            .club-detail {
+                grid-template-columns: 1fr;
+            }
+            .cd-img {
+                min-height: 200px;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-section">
+                <img src="LOGO.jpg" alt="ORYN" class="campus-logo" onerror="this.style.display='none'">
+                <a href="home.html" class="brand-name">ORYN <span>CLUBS</span></a>
+            </div>
+            <a href="home.html" class="btn-back">Home</a>
+        </nav>
+    </header>
+
+    <div class="hero-slideshow">
+        <div class="hslide active">
+            <img src="athletic.jpg" alt="ORYN Clubs" onerror="this.src='https://placehold.co/1920x550/F97316/white?text=ORYN+Clubs'">
+            <div class="slide-overlay">
+                <div class="hero-content">
+                    <div class="hero-tag">ORYN Student Life</div>
+                    <h1>Find Your <span>Community</span></h1>
+                    <p>Join clubs, build skills, and pursue your passions on campus</p>
+                    <div class="hero-stats" id="heroStats">
+                        <div class="hero-stat">
+                            <div class="num" id="clubCount">0</div>
+                            <div class="lbl">Clubs</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="num" id="totalMembers">0</div>
+                            <div class="lbl">Members</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="num">40+</div>
+                            <div class="lbl">Events/Year</div>
+                        </div>
+                    </div>
+                    <div class="hero-btns">
+                        <button class="cta-btn primary" onclick="document.getElementById('clubs-section').scrollIntoView({behavior:'smooth'})">Explore Clubs</button>
+                        <a href="home.html" class="cta-btn secondary">Campus Hub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-dots">
+            <div class="dot active" onclick="goSlide(0)"></div>
+        </div>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stats-bar-inner" id="statsBarInner">
+            <div class="stat-item">
+                <div class="val" id="statClubCount">0</div>
+                <div class="key">Clubs</div>
+            </div>
+            <div class="stat-item">
+                <div class="val" id="statMemberCount">0</div>
+                <div class="key">Members</div>
+            </div>
+            <div class="stat-item">
+                <div class="val">40+</div>
+                <div class="key">Events</div>
+            </div>
+            <div class="stat-item">
+                <div class="val">Free</div>
+                <div class="key">To Join</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="clubs-section">
+        <p class="section-label">Our Clubs</p>
+        <h2 class="section-title">Select a <span>Club to Explore</span></h2>
+        <div class="club-img-tabs" id="clubTabs">
+            <div class="loading">Loading clubs...</div>
+        </div>
+        <div id="clubPanelsContainer"></div>
+    </div>
+
+    <div class="toast" id="toast">
+        <div class="toast-title" id="toastTitle">Application Submitted!</div>
+        <div class="toast-msg" id="toastMsg">We will contact you within 48 hours.</div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="fs">
+                <h3>Our Clubs</h3>
+                <ul id="clubListFooter"></ul>
+            </div>
+            <div class="fs">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="mailto:clubs@oryuncampus.edu">clubs@oryuncampus.edu</a></li>
+                </ul>
+            </div>
+            <div class="fs">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="home.html">Campus Hub</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="rewards.html">Rewards</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ORYN Campus Clubs. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // API Configuration
+        const API_BASE = 'http://localhost:5500/api';
+        let clubsData = [];
+        let currentUserId = null;
+
+        // Get user ID from localStorage
+        function getCurrentUserId() {
+            const user = localStorage.getItem('user');
+            if (user) {
+                try {
+                    const userData = JSON.parse(user);
+                    return userData.id;
+                } catch (e) {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        // Club descriptions (fallback if not in database)
+        const clubDetailsMap = {
+            'Athletic Club': {
+                tag: 'Sports and Fitness',
+                category: 'Sports, Training and Competitions',
+                desc: 'The ORYN Athletic Club is the home of sport on campus. From tournaments to daily training, we build champions across football, basketball, badminton, athletics and more.'
+            },
+            'Aesthetic Club': {
+                tag: 'Arts and Culture',
+                category: 'Music, Drama, Visual Arts',
+                desc: 'The Aesthetic Club is ORYN\'s creative heart. We bring together students who love music, drama, visual arts, performance and everything in between.'
+            },
+            'AIESEC': {
+                tag: 'Leadership',
+                category: 'Global Leadership and Exchange',
+                desc: 'AIESEC is the world\'s largest youth-led organisation. We empower students through leadership programmes and global exchange opportunities.'
+            },
+            'LEO Club': {
+                tag: 'Service',
+                category: 'Community Service and Volunteering',
+                desc: 'LEO Club ORYN is part of Lions International. We develop leadership through community service, blood donation drives, and charity fundraisers.'
+            },
+            'IEEE Club': {
+                tag: 'Technology',
+                category: 'Engineering and Innovation',
+                desc: 'IEEE ORYN connects engineering students with the world\'s largest technical organisation through workshops on electronics, IoT, and robotics.'
+            }
+        };
+
+        // Fetch clubs from database
+        async function fetchClubs() {
+            try {
+                const response = await fetch(`${API_BASE}/clubs`);
+                const data = await response.json();
+
+                if (data.success && data.clubs && data.clubs.length > 0) {
+                    clubsData = data.clubs;
+                } else {
+                    console.log('No clubs from API, using demo data');
+                    loadDemoClubs();
+                }
+            } catch (error) {
+                console.error('Error fetching clubs:', error);
+                loadDemoClubs();
+            }
+
+            updateStats();
+            renderClubs();
+        }
+
+        // Demo clubs for fallback
+        function loadDemoClubs() {
+            clubsData = [{
+                id: 1,
+                club_name: 'Athletic Club',
+                category: 'Sports',
+                description: 'Sports and Fitness Club',
+                member_count: 280,
+                image: 'athletic.jpg'
+            }, {
+                id: 2,
+                club_name: 'Aesthetic Club',
+                category: 'Arts',
+                description: 'Arts and Culture Club',
+                member_count: 160,
+                image: 'aesthetic.jpg'
+            }, {
+                id: 3,
+                club_name: 'AIESEC',
+                category: 'Leadership',
+                description: 'Global Leadership Organization',
+                member_count: 120,
+                image: 'aiesec.jpg'
+            }, {
+                id: 4,
+                club_name: 'LEO Club',
+                category: 'Service',
+                description: 'Community Service Club',
+                member_count: 95,
+                image: 'leo.jpg'
+            }, {
+                id: 5,
+                club_name: 'IEEE Club',
+                category: 'Technology',
+                description: 'Engineering and Technology Club',
+                member_count: 140,
+                image: 'ieee.jpg'
+            }];
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalMembers = clubsData.reduce((sum, club) => sum + (club.member_count || 0), 0);
+
+            document.getElementById('clubCount').textContent = clubsData.length;
+            document.getElementById('totalMembers').textContent = totalMembers + '+';
+            document.getElementById('statClubCount').textContent = clubsData.length;
+            document.getElementById('statMemberCount').textContent = totalMembers + '+';
+        }
+
+        // Render clubs tabs and panels
+        function renderClubs() {
+            const tabsContainer = document.getElementById('clubTabs');
+            const panelsContainer = document.getElementById('clubPanelsContainer');
+            const footerList = document.getElementById('clubListFooter');
+
+            if (!clubsData.length) {
+                tabsContainer.innerHTML = '<div class="loading">No clubs available</div>';
+                return;
+            }
+
+            // Render tabs
+            tabsContainer.innerHTML = clubsData.map((club, idx) => `
+                <div class="cit ${idx === 0 ? 'active' : ''}" data-club-id="${club.id}" onclick="showClub(${club.id})">
+                    <img src="${club.image || club.club_name.toLowerCase().replace(/[ &]/g, '_') + '.jpg'}" 
+                         alt="${club.club_name}" 
+                         onerror="this.src='https://placehold.co/300x400/F97316/white?text=${club.club_name.charAt(0)}'">
+                    <div class="cit-overlay"></div>
+                    <div class="cit-label">${escapeHtml(club.club_name)}</div>
+                </div>
+            `).join('');
+
+            // Render panels
+            panelsContainer.innerHTML = clubsData.map((club, idx) => {
+                const details = clubDetailsMap[club.club_name] || {
+                    tag: club.category,
+                    category: club.category,
+                    desc: club.description || 'Join our community and make new friends!'
+                };
+
+                return `
+                    <div class="club-panel ${idx === 0 ? 'active' : ''}" id="panel-${club.id}">
+                        <div class="club-detail">
+                            <div class="cd-img">
+                                <img src="${club.image || club.club_name.toLowerCase().replace(/[ &]/g, '_') + '.jpg'}" 
+                                     alt="${club.club_name}" 
+                                     onerror="this.src='https://placehold.co/600x400/F97316/white?text=${club.club_name}'">
+                            </div>
+                            <div class="cd-info">
+                                <span class="cd-tag">${escapeHtml(details.tag)}</span>
+                                <div class="cd-name">${escapeHtml(club.club_name)}</div>
+                                <div class="cd-category">${escapeHtml(details.category)}</div>
+                                <p class="cd-desc">${escapeHtml(details.desc)}</p>
+                                <div class="cd-stats">
+                                    <div class="cd-stat"><div class="v">${club.member_count || 0}+</div><div class="k">Members</div></div>
+                                    <div class="cd-stat"><div class="v">Monthly</div><div class="k">Events</div></div>
+                                    <div class="cd-stat"><div class="v">Free</div><div class="k">To Join</div></div>
+                                </div>
+                                <button class="btn-join-main" onclick="scrollToForm(${club.id})">Join ${escapeHtml(club.club_name)}</button>
+                            </div>
+                        </div>
+                        <div class="join-form-wrap" id="form-${club.id}">
+                            <h3>Join ${escapeHtml(club.club_name)}</h3>
+                            <p class="jf-sub">Fill in the form below to apply for membership. Our coordinator will contact you within 48 hours.</p>
+                            <form onsubmit="submitJoin(event, ${club.id}, '${escapeHtml(club.club_name)}')">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Full Name *</label>
+                                        <input type="text" class="form-ctrl" id="name-${club.id}" required placeholder="Your full name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Student ID / User ID *</label>
+                                        <input type="number" class="form-ctrl" id="userid-${club.id}" required placeholder="e.g. 1">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Email *</label>
+                                        <input type="email" class="form-ctrl" id="email-${club.id}" required placeholder="student@oryuncampus.edu">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input type="tel" class="form-ctrl" id="phone-${club.id}" placeholder="+94 77 123 4567">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Why do you want to join?</label>
+                                    <textarea class="form-ctrl" id="motivation-${club.id}" rows="3" placeholder="Tell us about your interests..."></textarea>
+                                </div>
+                                <button type="submit" class="btn-submit-form" id="submitBtn-${club.id}">Submit Application</button>
+                            </form>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Update footer club list
+            if (footerList) {
+                footerList.innerHTML = clubsData.map(club => `<li>${escapeHtml(club.club_name)}</li>`).join('');
+            }
+        }
+
+        // Show selected club
+        function showClub(clubId) {
+            document.querySelectorAll('.cit').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.club-panel').forEach(p => p.classList.remove('active'));
+
+            const selectedTab = document.querySelector(`.cit[data-club-id="${clubId}"]`);
+            if (selectedTab) selectedTab.classList.add('active');
+
+            const selectedPanel = document.getElementById(`panel-${clubId}`);
+            if (selectedPanel) selectedPanel.classList.add('active');
+        }
+
+        // Scroll to join form
+        function scrollToForm(clubId) {
+            const form = document.getElementById(`form-${clubId}`);
+            if (form) {
+                form.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // Submit join application
+        async function submitJoin(event, clubId, clubName) {
+            event.preventDefault();
+
+            const userId = parseInt(document.getElementById(`userid-${clubId}`).value);
+            const fullName = document.getElementById(`name-${clubId}`).value.trim();
+            const email = document.getElementById(`email-${clubId}`).value.trim();
+
+            if (!userId || !fullName || !email) {
+                showToast('Missing Information', 'Please fill in all required fields marked with *', 'error');
+                return;
+            }
+
+            const submitBtn = document.getElementById(`submitBtn-${clubId}`);
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading-spinner"></span> Submitting...';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/clubs/join`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        club_id: clubId
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast('Application Submitted!', `Welcome to ${clubName}! ${result.message || 'We will contact you within 48 hours.'}`, 'success');
+
+                    // Clear form
+                    document.getElementById(`name-${clubId}`).value = '';
+                    document.getElementById(`userid-${clubId}`).value = '';
+                    document.getElementById(`email-${clubId}`).value = '';
+                    document.getElementById(`phone-${clubId}`).value = '';
+                    document.getElementById(`motivation-${clubId}`).value = '';
+
+                    // Add reward points for joining a club
+                    await addRewardPoints(userId, 50, `Joined ${clubName} club`);
+                } else {
+                    showToast('Application Failed', result.message || 'Unable to process your request.', 'error');
+                }
+            } catch (error) {
+                console.error('Join club error:', error);
+                showToast('Demo: Application Submitted!', `Your application for ${clubName} has been received. (Backend not connected)`, 'success');
+
+                // Clear form for demo
+                document.getElementById(`name-${clubId}`).value = '';
+                document.getElementById(`userid-${clubId}`).value = '';
+                document.getElementById(`email-${clubId}`).value = '';
+                document.getElementById(`phone-${clubId}`).value = '';
+                document.getElementById(`motivation-${clubId}`).value = '';
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Add reward points when joining a club
+        async function addRewardPoints(userId, points, reason) {
+            try {
+                const response = await fetch(`${API_BASE}/rewards/add-points`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        points: points,
+                        reason: reason
+                    })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    console.log(`Added ${points} points for ${reason}`);
+
+                    // Update local storage
+                    const currentPoints = parseInt(localStorage.getItem('reward_points') || '0');
+                    localStorage.setItem('reward_points', currentPoints + points);
+                }
+            } catch (error) {
+                // Fallback for demo
+                const currentPoints = parseInt(localStorage.getItem('reward_points') || '0');
+                localStorage.setItem('reward_points', currentPoints + points);
+            }
+        }
+
+        // Show toast notification
+        function showToast(title, msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            const titleEl = document.getElementById('toastTitle');
+            const msgEl = document.getElementById('toastMsg');
+
+            if (titleEl) titleEl.textContent = title;
+            if (msgEl) msgEl.textContent = msg;
+
+            if (toast) {
+                toast.classList.remove('error');
+                if (type === 'error') {
+                    toast.classList.add('error');
+                }
+
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 5000);
+            }
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // Slideshow
+        let currentSlide = 0;
+
+        function goSlide(n) {
+            const slides = document.querySelectorAll('.hslide');
+            const dots = document.querySelectorAll('.dot');
+            if (slides.length === 0) return;
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            currentSlide = n % slides.length;
+            slides[currentSlide].classList.add('active');
+            if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+        }
+
+        if (document.querySelectorAll('.hslide').length > 0) {
+            setInterval(() => goSlide(currentSlide + 1), 6000);
+        }
+
+        // Pre-fill form with user data if logged in
+        async function prefillUserData() {
+            currentUserId = getCurrentUserId();
+            if (currentUserId) {
+                try {
+                    const response = await fetch(`${API_BASE}/profile/${currentUserId}`);
+                    const result = await response.json();
+
+                    if (result.success && result.profile) {
+                        // Pre-fill all forms with user data
+                        clubsData.forEach(club => {
+                            const nameField = document.getElementById(`name-${club.id}`);
+                            const userIdField = document.getElementById(`userid-${club.id}`);
+                            const emailField = document.getElementById(`email-${club.id}`);
+
+                            if (nameField) nameField.value = `${result.profile.first_name} ${result.profile.last_name}`;
+                            if (userIdField) userIdField.value = currentUserId;
+                            if (emailField) emailField.value = result.profile.email || '';
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error fetching profile:', error);
+                }
+            }
+        }
+
+        // Initialize page
+        async function init() {
+            await fetchClubs();
+            await prefillUserData();
+        }
+
+        // Start the app
+        init();
+    </script>
+</body>
+
+</html>

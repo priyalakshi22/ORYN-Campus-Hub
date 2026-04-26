@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Center - ORYN Campus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --oxford-blue: #002147;
+            --oxford-light-blue: #4E7FA1;
+            --oxford-gold: #C7A25D;
+            --navy-blue: #001f3f;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --text-dark: #1a1a1a;
+            --shadow: 0 2px 12px rgba(0, 33, 71, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 33, 71, 0.15);
+            --orange-accent: #FF6B35;
+            --green-success: #4CAF50;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .campus-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(255, 107, 53, 0.3));
+        }
+        
+        .brand-name {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .brand-name span {
+            color: var(--orange-accent);
+        }
+        
+        .btn-back {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 107, 53, 0.2);
+            backdrop-filter: blur(10px);
+            color: var(--orange-accent);
+            border: 2px solid var(--orange-accent);
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-back:hover {
+            background: var(--orange-accent);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        .hero-slideshow {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .gym-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        
+        .gym-slide.active {
+            opacity: 1;
+        }
+        
+        .gym-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gym-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(255, 107, 53, 0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gym-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 900px;
+            padding: 2rem;
+            animation: slideUp 1s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .gym-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .gym-content p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 1.2rem 3rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            border: 2px solid transparent;
+        }
+        
+        .cta-btn.primary {
+            background: var(--orange-accent);
+            color: var(--white);
+            border-color: var(--orange-accent);
+        }
+        
+        .cta-btn.primary:hover {
+            background: transparent;
+            border-color: var(--orange-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+        
+        .cta-btn.secondary {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+        
+        .cta-btn.secondary:hover {
+            background: var(--white);
+            color: var(--oxford-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+        }
+        
+        .slide-dots {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 10;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .dot.active {
+            background: var(--orange-accent);
+            width: 35px;
+            border-radius: 6px;
+            box-shadow: 0 2px 15px rgba(255, 107, 53, 0.6);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 3rem;
+        }
+        
+        .section-title span {
+            color: var(--orange-accent);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
+            border-color: var(--orange-accent);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .feature-card h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+        
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        
+        .class-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .class-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.2);
+        }
+        
+        .class-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+        
+        .class-time {
+            background: var(--orange-accent);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .class-card h4 {
+            color: var(--white);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        
+        .class-info {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .spots-left {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .spots-green {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        
+        .spots-yellow {
+            background: rgba(255, 193, 7, 0.2);
+            color: #FFC107;
+        }
+        
+        .spots-red {
+            background: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+        }
+        
+        .btn-book {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid var(--orange-accent);
+            color: var(--orange-accent);
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-book:hover:not(:disabled) {
+            background: var(--orange-accent);
+            color: var(--white);
+        }
+        
+        .btn-book:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .membership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .membership-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .membership-card:hover {
+            transform: scale(1.05);
+            border-color: var(--orange-accent);
+            box-shadow: 0 12px 50px rgba(255, 107, 53, 0.4);
+        }
+        
+        .membership-card.featured {
+            border-color: var(--orange-accent);
+            background: rgba(255, 107, 53, 0.1);
+        }
+        
+        .membership-card h3 {
+            color: var(--white);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--orange-accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .price span {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .membership-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .membership-features li {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .membership-features li:before {
+            content: '✓ ';
+            color: var(--green-success);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .btn-membership {
+            width: 100%;
+            padding: 1rem;
+            background: var(--orange-accent);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-membership:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--green-success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .toast.error {
+            background: #dc2626;
+        }
+        
+        .toast.show {
+            display: block;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            color: var(--white);
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--orange-accent);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--orange-accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .gym-content h1 {
+                font-size: 2.5rem;
+            }
+            .gym-content p {
+                font-size: 1.1rem;
+            }
+            .hero-slideshow {
+                height: 450px;
+            }
+            .cta-buttons {
+                flex-direction: column;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-section">
+                <img src="LOGO.jpg" alt="ORYN Campus Logo" class="campus-logo" onerror="this.style.display='none'">
+                <a href="home.html" class="brand-name">ORYN <span>FITNESS</span></a>
+            </div>
+            <a href="home.html" class="btn-back">← Back to Home</a>
+        </nav>
+    </header>
+
+
+    <div class="hero-slideshow">
+        <div class="gym-slide active">
+            <img src="gym1.jpeg" alt="Fitness Center" onerror="this.src='https://placehold.co/1920x600/FF6B35/white?text=Fitness+Center'">
+            <div class="gym-overlay">
+                <div class="gym-content">
+                    <h1>Transform Your Body</h1>
+                    <p>State-of-the-art equipment, expert trainers, unlimited possibilities</p>
+                    <div class="cta-buttons">
+                        <a href="#schedule" class="cta-btn primary">Book a Class</a>
+                        <a href="#membership" class="cta-btn secondary">Membership Plans</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gym-slide">
+            <img src="gym2.jpeg" alt="Modern Gym Facilities" onerror="this.src='https://placehold.co/1920x600/FF6B35/white?text=Modern+Gym'">
+            <div class="gym-overlay">
+                <div class="gym-content">
+                    <h1>Elite Training Facility</h1>
+                    <p>Premium cardio zones, strength training, and group fitness classes</p>
+                    <div class="cta-buttons">
+                        <a href="#schedule" class="cta-btn primary">View Classes</a>
+                        <a href="#membership" class="cta-btn secondary">Get Membership</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-dots">
+            <div class="dot active" onclick="goToGymSlide(0)"></div>
+            <div class="dot" onclick="goToGymSlide(1)"></div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h2 class="section-title">Why Choose <span>ORYN Fitness</span></h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🏋️</div>
+                <h3>Premium Equipment</h3>
+                <p>State-of-the-art machines, free weights, and functional training zones with the latest technology</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👨‍🏫</div>
+                <h3>Expert Trainers</h3>
+                <p>Certified personal trainers and fitness coaches available for one-on-one sessions and guidance</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🧘</div>
+                <h3>Group Classes</h3>
+                <p>Yoga, HIIT, Spin, Zumba, CrossFit, and more - over 50 classes per week</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Progress Tracking</h3>
+                <p>Advanced body composition analysis, workout logs, and personalized fitness plans</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🕐</div>
+                <h3>24/7 Access</h3>
+                <p>Train on your schedule with round-the-clock access for premium members</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💚</div>
+                <h3>Wellness Programs</h3>
+                <p>Nutrition counseling, meditation sessions, and holistic health workshops</p>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="schedule">Weekly <span>Class Schedule</span></h2>
+        <div class="schedule-grid" id="scheduleGrid">
+            <div class="loading-spinner" style="margin: 2rem auto;"></div>
+        </div>
+
+        <h2 class="section-title" id="membership">Membership <span>Plans</span></h2>
+        <div class="membership-grid">
+            <div class="membership-card">
+                <h3>Basic</h3>
+                <div class="price">LKR 2,500<span>/month</span></div>
+                <ul class="membership-features">
+                    <li>Gym Access (6am-8pm)</li>
+                    <li>3 Group Classes/week</li>
+                    <li>Locker Room Access</li>
+                    <li>Basic Fitness Assessment</li>
+                </ul>
+                <button class="btn-membership" onclick="selectMembership('Basic', 2500)">Choose Plan</button>
+            </div>
+
+            <div class="membership-card featured">
+                <h3>Premium</h3>
+                <div class="price">LKR 4,500<span>/month</span></div>
+                <ul class="membership-features">
+                    <li>24/7 Gym Access</li>
+                    <li>Unlimited Group Classes</li>
+                    <li>1 Personal Training Session/week</li>
+                    <li>Nutrition Consultation</li>
+                    <li>Free Guest Passes (2/month)</li>
+                </ul>
+                <button class="btn-membership" onclick="selectMembership('Premium', 4500)">Choose Plan</button>
+            </div>
+
+            <div class="membership-card">
+                <h3>Annual</h3>
+                <div class="price">LKR 45,000<span>/year</span></div>
+                <ul class="membership-features">
+                    <li>All Premium Features</li>
+                    <li>2 Months Free</li>
+                    <li>Exclusive Workshops Access</li>
+                    <li>Free Fitness Merchandise</li>
+                    <li>Priority Booking</li>
+                </ul>
+                <button class="btn-membership" onclick="selectMembership('Annual', 45000)">Choose Plan</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Fitness Center Hours</h3>
+                <ul>
+                    <li>Monday - Friday: 5:00 AM - 7:00 PM</li>
+                    <li>Saturday - Sunday: 6:00 AM - 5:00 PM</li>
+                    <li>24/7 Access for Premium Members</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><a href="tel:+94111234567">📞 +94 11 123 4567</a></li>
+                    <li><a href="mailto:fitness@oryuncampus.edu">✉️ fitness@oryuncampus.edu</a></li>
+                    <li>📍 ORYN Campus, Building C</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="home.html">Campus Hub</a></li>
+                    <li><a href="clubs.html">Student Clubs</a></li>
+                    <li><a href="Booking.html">Facility Booking</a></li>
+                    <li><a href="REWARD.html">Rewards</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ORYN Campus Fitness Center. All rights reserved. | <a href="#terms">Terms</a> | <a href="#privacy">Privacy</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = 'http://localhost:5500/api';
+        let currentUserId = null;
+
+        function getCurrentUserId() {
+            const user = localStorage.getItem('user');
+            if (user) {
+                try {
+                    const userData = JSON.parse(user);
+                    return userData.id;
+                } catch (e) {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        async function fetchGymClasses() {
+            try {
+                const response = await fetch(`${API_BASE}/gym/classes`);
+                const result = await response.json();
+
+                if (result.success && result.classes) {
+                    renderClasses(result.classes);
+                } else {
+                    useFallbackClasses();
+                }
+            } catch (error) {
+                console.error('Error fetching classes:', error);
+                useFallbackClasses();
+            }
+        }
+
+        function useFallbackClasses() {
+            const fallbackClasses = [{
+                id: 1,
+                class_name: 'HIIT Bootcamp',
+                instructor: 'Coach Malshan',
+                class_time: '06:00:00',
+                class_day: 'Monday',
+                max_participants: 20,
+                current_bookings: 12
+            }, {
+                id: 2,
+                class_name: 'Power Yoga',
+                instructor: 'Instructor Sarala',
+                class_time: '07:00:00',
+                class_day: 'Tuesday',
+                max_participants: 15,
+                current_bookings: 8
+            }, {
+                id: 3,
+                class_name: 'Spin Cycle',
+                instructor: 'Coach Saman',
+                class_time: '12:00:00',
+                class_day: 'Wednesday',
+                max_participants: 25,
+                current_bookings: 18
+            }, {
+                id: 4,
+                class_name: 'CrossFit WOD',
+                instructor: 'Coach Alex',
+                class_time: '17:00:00',
+                class_day: 'Thursday',
+                max_participants: 12,
+                current_bookings: 10
+            }, {
+                id: 5,
+                class_name: 'Zumba Dance',
+                instructor: 'Instructor Maria',
+                class_time: '18:30:00',
+                class_day: 'Friday',
+                max_participants: 30,
+                current_bookings: 15
+            }];
+            renderClasses(fallbackClasses);
+        }
+
+        function formatTime(timeString) {
+            const [hours, minutes] = timeString.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const hour12 = hour % 12 || 12;
+            return `${hour12}:${minutes} ${ampm}`;
+        }
+
+        function getSpotsClass(available, max) {
+            const percentage = (available / max) * 100;
+            if (percentage <= 20) return 'spots-red';
+            if (percentage <= 50) return 'spots-yellow';
+            return 'spots-green';
+        }
+
+        function renderClasses(classes) {
+            const container = document.getElementById('scheduleGrid');
+            if (!container) return;
+
+            container.innerHTML = classes.map(cls => {
+                const availableSpots = cls.max_participants - cls.current_bookings;
+                const isFull = availableSpots <= 0;
+                const spotsClass = getSpotsClass(availableSpots, cls.max_participants);
+
+                return `
+                    <div class="class-card">
+                        <div class="class-header">
+                            <div>
+                                <h4>${escapeHtml(cls.class_name)}</h4>
+                                <div class="class-info">
+                                    <div>👨‍🏫 ${escapeHtml(cls.instructor)} | ${cls.class_day}</div>
+                                    <div>📍 Studio ${cls.id}</div>
+                                    <div class="spots-left ${spotsClass}">${availableSpots} spots available</div>
+                                </div>
+                            </div>
+                            <div class="class-time">${formatTime(cls.class_time)}</div>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">
+                            ${getClassDescription(cls.class_name)}
+                        </p>
+                        <button class="btn-book" onclick="bookClass(${cls.id}, '${escapeHtml(cls.class_name)}')" ${isFull ? 'disabled' : ''}>
+                            ${isFull ? 'Class Full' : 'Book This Class'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getClassDescription(className) {
+            const descriptions = {
+                'HIIT Bootcamp': 'High-intensity interval training for maximum fat burn and endurance building',
+                'Power Yoga': 'Dynamic flow combining strength, flexibility, and mindfulness',
+                'Spin Cycle': 'High-energy cycling workout with motivating music and challenging intervals',
+                'CrossFit WOD': 'Workout of the Day - constantly varied functional movements at high intensity',
+                'Zumba Dance': 'High-energy Latin-inspired dance fitness party that feels like fun, not work'
+            };
+            return descriptions[className] || 'Join this exciting fitness class and achieve your goals!';
+        }
+
+        async function bookClass(classId, className) {
+            currentUserId = getCurrentUserId();
+
+            if (!currentUserId) {
+                showToast('Please log in to book classes', 'error');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+                return;
+            }
+
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<span class="loading-spinner"></span> Booking...';
+            button.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/gym/book`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: currentUserId,
+                        class_id: classId
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast(`✅ ${result.message}`, 'success');
+                    await fetchGymClasses(); // Refresh the schedule
+                } else {
+                    showToast(`❌ ${result.message || 'Booking failed'}`, 'error');
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }
+            } catch (error) {
+                console.error('Booking error:', error);
+                showToast('Cannot connect to server. Please make sure backend is running on port 5500.', 'error');
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
+        }
+
+        async function selectMembership(plan, price) {
+            currentUserId = getCurrentUserId();
+
+            if (!currentUserId) {
+                showToast('Please log in to purchase membership', 'error');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+                return;
+            }
+
+            try {
+                const startDate = new Date().toISOString().split('T')[0];
+                const endDate = new Date();
+                endDate.setMonth(endDate.getMonth() + 1);
+                const endDateStr = endDate.toISOString().split('T')[0];
+
+                const response = await fetch(`${API_BASE}/gym/membership`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: currentUserId,
+                        membership_type: plan.toLowerCase(),
+                        start_date: startDate,
+                        end_date: endDateStr
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast(`✅ ${result.message}`, 'success');
+                    // Add reward points
+                    const points = plan === 'Premium' ? 100 : (plan === 'Annual' ? 300 : 50);
+                    await addRewardPoints(currentUserId, points, `Purchased ${plan} membership`);
+                } else {
+                    showToast(`❌ ${result.message || 'Membership purchase failed'}`, 'error');
+                }
+            } catch (error) {
+                console.error('Membership error:', error);
+                showToast('Demo: Membership selected! (Backend not connected)', 'success');
+            }
+        }
+
+        async function addRewardPoints(userId, points, reason) {
+            try {
+                await fetch(`${API_BASE}/rewards/add-points`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        points: points,
+                        reason: reason
+                    })
+                });
+            } catch (error) {
+                console.error('Error adding points:', error);
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        let currentGymSlide = 0;
+        const gymSlides = document.querySelectorAll('.gym-slide');
+        const gymDots = document.querySelectorAll('.slide-dots .dot');
+
+        function showGymSlide(index) {
+            gymSlides.forEach(slide => slide.classList.remove('active'));
+            gymDots.forEach(dot => dot.classList.remove('active'));
+
+            if (index >= gymSlides.length) currentGymSlide = 0;
+            if (index < 0) currentGymSlide = gymSlides.length - 1;
+
+            gymSlides[currentGymSlide].classList.add('active');
+            gymDots[currentGymSlide].classList.add('active');
+        }
+
+        function goToGymSlide(index) {
+            currentGymSlide = index;
+            showGymSlide(currentGymSlide);
+        }
+
+        setInterval(() => {
+            currentGymSlide++;
+            showGymSlide(currentGymSlide);
+        }, 6000);
+
+        fetchGymClasses();
+    </script>
+</body>
+
+</html>

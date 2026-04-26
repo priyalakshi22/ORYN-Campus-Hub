@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORYN Campus - Student Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --oxford-blue: #002147;
+            --oxford-light-blue: #4E7FA1;
+            --oxford-gold: #C7A25D;
+            --navy-blue: #001f3f;
+            --sky-blue: #87CEEB;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --text-dark: #1a1a1a;
+            --shadow: 0 2px 12px rgba(0, 33, 71, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 33, 71, 0.15);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light-gray);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .top-bar {
+            background: var(--oxford-blue);
+            color: var(--white);
+            padding: 0.5rem 0;
+            font-size: 0.875rem;
+        }
+        
+        .top-bar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-links a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+        
+        .top-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            max-width: 1400px;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .campus-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .brand-name {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--oxford-blue);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .main-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-link {
+            color: var(--oxford-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--oxford-light-blue);
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: var(--oxford-blue);
+            color: var(--white);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .user-profile:hover {
+            background: var(--oxford-light-blue);
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--oxford-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .hero-slideshow {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            background: var(--oxford-blue);
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 33, 71, 0.85), rgba(78, 127, 161, 0.75));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .slide-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 800px;
+            padding: 2rem;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .slide-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--oxford-gold);
+            color: var(--oxford-blue);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s;
+            font-size: 1.05rem;
+        }
+        
+        .cta-button:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .slideshow-nav {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 10;
+        }
+        
+        .slide-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .slide-dot.active {
+            background: var(--white);
+            width: 30px;
+            border-radius: 6px;
+        }
+        
+        .slide-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            color: var(--white);
+            font-size: 2rem;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .slide-arrow:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .slide-arrow.prev {
+            left: 2rem;
+        }
+        
+        .slide-arrow.next {
+            right: 2rem;
+        }
+        
+        .featured-sections {
+            max-width: 1400px;
+            margin: -80px auto 4rem;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--oxford-blue);
+            margin-bottom: 3rem;
+        }
+        
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            position: relative;
+            height: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .feature-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .feature-card:hover .feature-image {
+            transform: scale(1.1);
+        }
+        
+        .feature-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 33, 71, 0.95), rgba(0, 33, 71, 0.7), transparent);
+            padding: 2rem;
+            color: var(--white);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-card p {
+            font-size: 1rem;
+            opacity: 0.95;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--oxford-gold);
+            font-weight: 600;
+            text-decoration: none;
+            transition: gap 0.3s;
+        }
+        
+        .feature-link:hover {
+            gap: 1rem;
+        }
+        
+        .quick-access {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .system-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+            border-left: 4px solid var(--oxford-blue);
+        }
+        
+        .system-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-left-color: var(--oxford-gold);
+        }
+        
+        .system-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .system-card h3 {
+            color: var(--oxford-blue);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .system-card p {
+            color: var(--text-dark);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background: var(--oxford-blue);
+            color: var(--white);
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--oxford-gold);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+            .slide-content h1 {
+                font-size: 2rem;
+            }
+            .slide-content p {
+                font-size: 1rem;
+            }
+            .hero-slideshow {
+                height: 400px;
+            }
+            .feature-card {
+                height: 300px;
+            }
+            .slide-arrow {
+                padding: 0.75rem 1rem;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-section">
+                <div class="logo-section">
+                    <img src="LOGO.jpg" alt="Oryn Campus" class="campus-logo">
+                    <a href="home.html" class="brand-name">ORYN CAMPUS</a>
+
+                </div>
+
+
+                <div>
+                    <div class="nav-item">
+                        <a href="Register.html" class="nav-link">Admissions</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+
+
+    </header>
+
+
+    <div class="hero-slideshow">
+        <button class="slide-arrow prev" onclick="changeSlide(-1)">‹</button>
+        <button class="slide-arrow next" onclick="changeSlide(1)">›</button>
+
+        <div class="slide active">
+            <img src="clubs.jpg" alt="Student Clubs" class="slide-image">
+            <div class="slide-overlay">
+                <div class="slide-content">
+                    <h1>Join Our Vibrant Community</h1>
+                    <p>Connect with over 45 active clubs and organizations</p>
+                    <a href="clubs.html" class="cta-button">Explore Clubs</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="library.jpg" alt="Library" class="slide-image">
+            <div class="slide-overlay">
+                <div class="slide-content">
+                    <h1>World-Class Library Resources</h1>
+                    <p>Access 10,000+ books, journals, and digital resources</p>
+                    <a href="LIBRARY.html" class="cta-button">Visit Library</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="jobs.jpg" alt="Career Opportunities" class="slide-image">
+            <div class="slide-overlay">
+                <div class="slide-content">
+                    <h1>Launch Your Career</h1>
+                    <p>Discover internships and job opportunities tailored for students</p>
+                    <a href="careers.html" class="cta-button">Find Opportunities</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="booking.jpg" alt="Facility Booking" class="slide-image">
+            <div class="slide-overlay">
+                <div class="slide-content">
+                    <h1>Book Campus Facilities</h1>
+                    <p>Reserve study rooms, labs, and event spaces instantly</p>
+                    <a href="Booking.html" class="cta-button">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="slideshow-nav">
+            <div class="slide-dot active" onclick="goToSlide(0)"></div>
+            <div class="slide-dot" onclick="goToSlide(1)"></div>
+            <div class="slide-dot" onclick="goToSlide(2)"></div>
+            <div class="slide-dot" onclick="goToSlide(3)"></div>
+        </div>
+    </div>
+
+    <div class="featured-sections">
+        <div class="featured-grid">
+            <a href="clubs.html" style="text-decoration: none;">
+                <div class="feature-card">
+                    <img src="clubs.jpg" alt="Clubs" class="feature-image">
+                    <div class="feature-overlay">
+                        <h3>Student Clubs</h3>
+                        <p>Join 45+ active clubs and connect with like-minded students</p>
+                        <span class="feature-link">Explore Clubs →</span>
+                    </div>
+                </div>
+            </a>
+            <a href="careers.html" style="text-decoration: none;">
+                <div class="feature-card">
+                    <img src="jobs.jpg" alt="Careers" class="feature-image">
+                    <div class="feature-overlay">
+                        <h3>Career Center</h3>
+                        <p>Find internships and job opportunities from top companies</p>
+                        <span class="feature-link">Browse Jobs →</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="Booking.html" style="text-decoration: none;">
+                <div class="feature-card">
+                    <img src="booking.jpg" alt="Facilities" class="feature-image">
+                    <div class="feature-overlay">
+                        <h3>Facility Booking</h3>
+                        <p>Reserve study rooms, labs, and sports facilities online</p>
+                        <span class="feature-link">Book Facility →</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="quick-access">
+        <h2 class="section-title">Quick Access</h2>
+        <div class="systems-grid">
+            <div class="system-card" onclick="window.location.href='LIBRARY.html'">
+
+                <h3>Library</h3>
+                <p>Search your book anytime, anywhere.</p>
+            </div>
+
+
+            <div class="system-card" onclick="window.location.href='transit.html'">
+
+                <h3>Transit Service</h3>
+                <p>Track campus buses in real-time</p>
+            </div>
+
+            <div class="system-card" onclick="window.location.href='REWARD.html'">
+
+                <h3>Rewards Program</h3>
+                <p>Earn points for campus activities</p>
+            </div>
+
+            <div class="system-card" onclick="window.location.href='Marketplace.html'">
+
+                <h3>Marketplace</h3>
+                <p>Buy and sell with fellow students</p>
+            </div>
+
+            <div class="system-card" onclick="window.location.href='Cafe.html'">
+
+                <h3>Cafe</h3>
+                <p>Order food online and skip the queue</p>
+            </div>
+
+            <div class="system-card" onclick="window.location.href='Events.html'">
+
+                <h3>Events</h3>
+                <p>Discover and register for events</p>
+            </div>
+
+
+            <div class="system-card" onclick="window.location.href='map.html'">
+
+                <h3>Map</h3>
+                <p>Navigate campus buildings easily</p>
+            </div>
+            <div class="system-card" onclick="window.location.href='social_feedback.html'">
+
+                <h3>Feedback</h3>
+                <p>Give your openions and ideas</p>
+            </div>
+
+
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contacts</h3>
+                    <ul>
+                        <div class="footer-section">
+                            <div>E-mail:<a href="mailto:info@oryuncampus.edu" style="color: white;">info@oryuncampus.edu</a> Mobile: +94 11 123 4567</div>
+                        </div>
+
+                        <li><a href="map.html">Campus Map</a></li>
+
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Student Services</h3>
+                    <ul>
+
+                        <li><a href="jobs.html">Jobs</a></li>
+                        <li><a href="Marketplace.html">Marketplace</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Campus Life</h3>
+                    <ul>
+                        <li><a href="clubs.html">Clubs & Organizations</a></li>
+                        <li><a href="Booking.html">Facilities Booking</a></li>
+                        <li><a href="careers.html">Career Services</a></li>
+                        <li><a href="LIBRARY.html">Library</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ORYN Campus. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+            </div>
+        </footer>
+
+        <script>
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.slide-dot');
+
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+
+                if (index >= slides.length) currentSlide = 0;
+                if (index < 0) currentSlide = slides.length - 1;
+
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+
+            function changeSlide(direction) {
+                currentSlide += direction;
+                showSlide(currentSlide);
+            }
+
+            function goToSlide(index) {
+                currentSlide = index;
+                showSlide(currentSlide);
+            }
+
+
+            setInterval(() => {
+                currentSlide++;
+                showSlide(currentSlide);
+            }, 5000);
+
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const studentName = localStorage.getItem('student_name') || 'Student';
+                document.getElementById('studentName').textContent = studentName;
+
+                const initials = studentName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                document.getElementById('userInitials').textContent = initials;
+            });
+
+            function showUserMenu() {
+                const menu = confirm('User Menu\n\n✓ Profile Settings\n✓ My Account\n✓ Preferences\n✓ Logout\n\nLogout now?');
+                if (menu) {
+                    localStorage.clear();
+                    window.location.href = 'Register.html';
+                }
+            }
+
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        </script>
+</body>
+
+</html>
