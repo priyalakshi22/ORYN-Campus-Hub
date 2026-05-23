@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORYN Campus Careers | Jobs & Internships</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --bg: #080808;
+            --accent: #F97316;
+            --accent2: #ea6a0a;
+            --blue: #3B82F6;
+            --green: #22C55E;
+            --purple: #8B5CF6;
+            --teal: #06B6D4;
+            --white: #fff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --muted: rgba(255, 255, 255, 0.65);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(160deg, #080808 0%, #0f0a05 50%, #080808 100%);
+            color: var(--white);
+            min-height: 100vh;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .campus-logo {
+            width: 55px;
+            height: 55px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 24px;
+            color: #000;
+        }
+        
+        .brand-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: -.5px;
+        }
+        
+        .brand-name span {
+            color: var(--accent);
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .btn-back {
+            padding: .65rem 1.5rem;
+            background: rgba(249, 115, 22, .15);
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all .3s;
+            font-size: .9rem;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .btn-back:hover {
+            background: var(--accent);
+            color: #000;
+            transform: translateY(-2px);
+        }
+        
+        .page-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-top: 3rem;
+            margin-bottom: .6rem;
+        }
+        
+        .page-title span {
+            color: var(--accent);
+        }
+        
+        .section-sub {
+            text-align: center;
+            color: var(--muted);
+            font-size: 1.05rem;
+            margin-bottom: 3rem;
+        }
+        
+        .streams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 2rem;
+        }
+        
+        .stream-card {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all .4s cubic-bezier(.175, .885, .32, 1.275);
+            background: var(--glass);
+        }
+        
+        .stream-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--card-accent, var(--accent));
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5), 0 0 40px var(--card-glow, rgba(249, 115, 22, .2));
+        }
+        
+        .stream-bg {
+            width: 100%;
+            height: 230px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform .5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        /* When image is used, add a dark overlay on top for readability */
+        
+        .stream-bg.has-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.45) 100%);
+            pointer-events: none;
+        }
+        
+        .stream-card:hover .stream-bg {
+            transform: scale(1.07);
+        }
+        
+        .stream-icon-bg {
+            font-size: 80px;
+            opacity: 0.3;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stream-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, .92) 60%);
+        }
+        
+        .stream-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: .3rem;
+        }
+        
+        .stream-sub {
+            color: rgba(255, 255, 255, .75);
+            font-size: .85rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stream-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .job-count {
+            color: rgba(255, 255, 255, .8);
+            font-size: .85rem;
+        }
+        
+        .btn-explore {
+            padding: .55rem 1.3rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: .85rem;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            background: var(--accent);
+            color: #000;
+            transition: all .3s;
+        }
+        
+        .auto {
+            --card-accent: #F97316;
+            --card-glow: rgba(249, 115, 22, .25);
+        }
+        
+        .civil {
+            --card-accent: #22C55E;
+            --card-glow: rgba(34, 197, 94, .25);
+        }
+        
+        .software {
+            --card-accent: #3B82F6;
+            --card-glow: rgba(59, 130, 246, .25);
+        }
+        
+        .management {
+            --card-accent: #8B5CF6;
+            --card-glow: rgba(139, 92, 246, .25);
+        }
+        
+        .healthcare {
+            --card-accent: #EC4899;
+            --card-glow: rgba(236, 72, 153, .25);
+        }
+        
+        .navy-card {
+            --card-accent: #06B6D4;
+            --card-glow: rgba(6, 182, 212, .25);
+        }
+        
+        .aviation {
+            --card-accent: #F59E0B;
+            --card-glow: rgba(245, 158, 11, .25);
+        }
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .85);
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal-overlay.open {
+            display: flex;
+        }
+        
+        .modal {
+            background: #0f0f0f;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            width: 100%;
+            max-width: 860px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            padding: 2rem 2.5rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: sticky;
+            top: 0;
+            background: #0f0f0f;
+            z-index: 10;
+            border-radius: 28px 28px 0 0;
+        }
+        
+        .modal-title-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .modal-icon {
+            font-size: 2.5rem;
+        }
+        
+        .modal-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        
+        .modal-sub {
+            color: var(--muted);
+            font-size: .9rem;
+            margin-top: .2rem;
+        }
+        
+        .modal-close {
+            background: rgba(255, 255, 255, .1);
+            border: none;
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all .3s;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, .2);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 2rem 2.5rem;
+        }
+        
+        .jobs-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .job-item {
+            background: var(--glass);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all .3s;
+        }
+        
+        .job-item:hover {
+            border-color: var(--item-accent, var(--accent));
+            background: rgba(255, 255, 255, .08);
+            transform: translateX(4px);
+        }
+        
+        .job-item-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: .75rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .job-title-main {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: .25rem;
+        }
+        
+        .company {
+            color: var(--muted);
+            font-size: .9rem;
+        }
+        
+        .job-badge {
+            padding: .35rem .9rem;
+            border-radius: 20px;
+            font-size: .78rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        
+        .badge-intern {
+            background: rgba(249, 115, 22, .25);
+            color: #F97316;
+            border: 1px solid rgba(249, 115, 22, .4);
+        }
+        
+        .badge-full {
+            background: rgba(34, 197, 94, .25);
+            color: #22C55E;
+            border: 1px solid rgba(34, 197, 94, .4);
+        }
+        
+        .badge-part {
+            background: rgba(139, 92, 246, .25);
+            color: #8B5CF6;
+            border: 1px solid rgba(139, 92, 246, .4);
+        }
+        
+        .badge-research {
+            background: rgba(6, 182, 212, .25);
+            color: #06B6D4;
+            border: 1px solid rgba(6, 182, 212, .4);
+        }
+        
+        .badge-contract {
+            background: rgba(245, 158, 11, .25);
+            color: #F59E0B;
+            border: 1px solid rgba(245, 158, 11, .4);
+        }
+        
+        .job-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: .85rem;
+            color: var(--muted);
+            margin-bottom: .75rem;
+        }
+        
+        .job-meta span {
+            display: flex;
+            align-items: center;
+            gap: .3rem;
+        }
+        
+        .job-desc {
+            font-size: .9rem;
+            color: rgba(255, 255, 255, .75);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .job-skills {
+            display: flex;
+            gap: .5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .skill-tag {
+            padding: .25rem .7rem;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 20px;
+            font-size: .78rem;
+        }
+        
+        .btn-apply-job {
+            padding: .7rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: .9rem;
+            cursor: pointer;
+            transition: all .3s;
+            border: 2px solid;
+            background: transparent;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .app-form-wrap {
+            display: none;
+        }
+        
+        .app-form-wrap.open {
+            display: block;
+        }
+        
+        .form-section {
+            background: var(--glass);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-section h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: .45rem;
+            font-size: .9rem;
+        }
+        
+        .form-group label span {
+            color: var(--accent);
+        }
+        
+        .form-ctrl {
+            width: 100%;
+            padding: .9rem 1rem;
+            background: rgba(255, 255, 255, .07);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--white);
+            font-size: .95rem;
+            font-family: 'Inter', sans-serif;
+            transition: all .3s;
+        }
+        
+        .form-ctrl:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, .1);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            gap: .75rem;
+            flex-wrap: wrap;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            cursor: pointer;
+        }
+        
+        .checkbox-item input {
+            accent-color: var(--accent);
+            width: 16px;
+            height: 16px;
+        }
+        
+        .btn-submit-app {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all .3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-submit-app:hover {
+            background: var(--accent2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(249, 115, 22, .5);
+        }
+        
+        .back-to-jobs {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: .9rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            margin-bottom: 1.5rem;
+            padding: 0;
+        }
+        
+        .success-screen {
+            display: none;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .success-screen.open {
+            display: block;
+        }
+        
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            animation: bounce .6s ease;
+        }
+        
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: scale(1)
+            }
+            50% {
+                transform: scale(1.2)
+            }
+        }
+        
+        .success-screen h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: .75rem;
+        }
+        
+        .success-details {
+            background: var(--glass);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            max-width: 400px;
+            margin: 0 auto 2rem;
+            text-align: left;
+        }
+        
+        .success-row {
+            display: flex;
+            justify-content: space-between;
+            padding: .6rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: .9rem;
+        }
+        
+        .success-row:last-child {
+            border: none;
+        }
+        
+        .btn-done {
+            padding: .9rem 2.5rem;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, .8);
+            backdrop-filter: blur(20px);
+            padding: 3rem 2rem 1.5rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .fs h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .fs ul li,
+        .fs a {
+            color: var(--muted);
+            text-decoration: none;
+            display: block;
+            margin-bottom: .5rem;
+            font-size: .9rem;
+        }
+        
+        .fs a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: .85rem;
+        }
+        
+        @media(max-width:600px) {
+            .page-title {
+                font-size: 2rem
+            }
+            .modal-body {
+                padding: 1.5rem
+            }
+            .form-row {
+                grid-template-columns: 1fr
+            }
+        }
+        
+        .toast-msg {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            z-index: 10000;
+            animation: fadeInRight 0.3s ease;
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--muted);
+        }
+        
+        .no-jobs {
+            text-align: center;
+            padding: 3rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-section">
+                <div class="campus-logo">O</div>
+                <a href="#" class="brand-name" onclick="location.reload();return false;">ORYN <span>CAMPUS</span></a>
+            </div>
+            <div class="nav-right">
+                <a href="index.html" class="btn-back">Home</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Choose Your <span>Career Stream</span></h1>
+        <div class="section-sub">Real opportunities from our industry partners — powered by live database</div>
+        <div class="streams-grid" id="streamsGrid">
+            <div class="loading">Loading opportunities...</div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeIfOutside(event)">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <div class="modal-title-row">
+                    <div class="modal-icon" id="modalIcon">💼</div>
+                    <div>
+                        <div class="modal-title" id="modalTitle">Career Stream</div>
+                        <div class="modal-sub" id="modalSub">Available opportunities</div>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div id="jobsView">
+                    <div class="jobs-list" id="jobsList"></div>
+                </div>
+                <div class="app-form-wrap" id="formView">
+                    <button class="back-to-jobs" onclick="showJobs()">← Back to Jobs</button>
+                    <div id="applyingFor" style="background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:1rem 1.5rem;margin-bottom:1.5rem;"></div>
+                    <div class="form-section">
+                        <h3>👤 Personal Information</h3>
+                        <div class="form-row">
+                            <div class="form-group"><label>First Name <span>*</span></label><input type="text" class="form-ctrl" id="fFirst" placeholder="Your first name"></div>
+                            <div class="form-group"><label>Last Name <span>*</span></label><input type="text" class="form-ctrl" id="fLast" placeholder="Last name"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Email <span>*</span></label><input type="email" class="form-ctrl" id="fEmail" placeholder="you@oryuncampus.edu"></div>
+                            <div class="form-group"><label>Phone <span>*</span></label><input type="tel" class="form-ctrl" id="fPhone" placeholder="+94 XX XXX XXXX"></div>
+                        </div>
+                        <div class="form-group"><label>Student ID / User ID <span>*</span></label><input type="text" class="form-ctrl" id="fUserId" placeholder="STU2026001"></div>
+                        <div class="form-group"><label>Department / Faculty <span>*</span></label><input type="text" class="form-ctrl" id="fDept" placeholder="e.g., Software Engineering"></div>
+                    </div>
+                    <div class="form-section">
+                        <h3>📄 Application</h3>
+                        <div class="form-group"><label>Cover Letter <span>*</span></label><textarea class="form-ctrl" id="fCover" rows="4" placeholder="Why are you a great fit?"></textarea></div>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item"><input type="checkbox" id="fAgree"><span>I confirm info is accurate</span></label>
+                            <label class="checkbox-item"><input type="checkbox" id="fTerms"><span>I agree to Terms & Privacy</span></label>
+                        </div>
+                    </div>
+                    <button class="btn-submit-app" onclick="submitApplication()">Submit Application →</button>
+                </div>
+                <div class="success-screen" id="successView">
+                    <div class="success-icon">🎉</div>
+                    <h2>Application Submitted!</h2>
+                    <p>Our recruitment team will review your profile.</p>
+                    <div class="success-details" id="successDetails"></div>
+                    <button class="btn-done" onclick="resetModal()">Browse More Jobs</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="fs">
+                <h3>Contacts</h3>
+                <ul>
+                    <li><a href="tel:+94111234570">+94 11 123 4570</a></li>
+                    <li><a href="mailto:careers@oryuncampus.edu">careers@oryuncampus.edu</a></li>
+                </ul>
+            </div>
+            <div class="fs">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Campus Hub</a></li>
+                    <li><a href="#">Career Resources</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ORYN Campus Careers. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = 'http://localhost:5500/api';
+
+        const STREAM_CONFIG = {
+            'Automobile Engineering': {
+                image: 'Images/room5.jpeg', // ✅ your existing image
+                icon: '🚗',
+                class: 'auto',
+                color: '#F97316',
+                gradient: 'linear-gradient(135deg, #F97316, #ea6a0a)'
+            },
+            'Civil Engineering': {
+                image: 'Images/civil.jpg', // 📁 add your image here
+                icon: '🏗️',
+                class: 'civil',
+                color: '#22C55E',
+                gradient: 'linear-gradient(135deg, #22C55E, #16a34a)'
+            },
+            'Software Engineering': {
+                image: 'Images/software.jpg', // 📁 add your image here
+                icon: '💻',
+                class: 'software',
+                color: '#3B82F6',
+                gradient: 'linear-gradient(135deg, #3B82F6, #2563eb)'
+            },
+            'Business & Management': {
+                image: 'Images/images.jpg', // 📁 add your image here
+                icon: '📊',
+                class: 'management',
+                color: '#8B5CF6',
+                gradient: 'linear-gradient(135deg, #8B5CF6, #7c3aed)'
+            },
+            'Healthcare & Medicine': {
+                image: 'Images/images_1_.jpg', // ✅ healthcare team photo
+                icon: '🏥',
+                class: 'healthcare',
+                color: '#EC4899',
+                gradient: 'linear-gradient(135deg, #EC4899, #db2777)'
+            },
+            'Naval & Defence': {
+                image: 'Images/naval_jpg.jpg', // ✅ navy ships photo
+                icon: '⚓',
+                class: 'navy-card',
+                color: '#06B6D4',
+                gradient: 'linear-gradient(135deg, #06B6D4, #0891b2)'
+            },
+            'Aviation & Aerospace': {
+                image: 'Images/images__2_.jpg', // ✅ aircraft photo
+                icon: '✈️',
+                class: 'aviation',
+                color: '#F59E0B',
+                gradient: 'linear-gradient(135deg, #F59E0B, #d97706)'
+            }
+        };
+
+        let allJobs = [];
+        let currentStreamKey = null;
+        let currentJob = null;
+        async function fetchJobsFromDB() {
+            try {
+                const response = await fetch(API_BASE + '/jobs');
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                const data = await response.json();
+
+                if (data.success && Array.isArray(data.jobs)) {
+                    allJobs = [];
+                    for (var i = 0; i < data.jobs.length; i++) {
+                        var job = data.jobs[i];
+                        allJobs.push({
+                            id: job.id,
+                            title: job.title || 'Position Available',
+                            company: job.company || 'Industry Partner',
+                            type: job.job_type || 'intern',
+                            location: job.location || 'Various Locations',
+                            salary_range: job.salary || 'Negotiable',
+                            duration: job.duration || null,
+                            deadline: job.deadline || null,
+                            description: job.description || 'Join our team and grow your career with ORYN Campus opportunities.',
+                            requirements: job.requirements || 'Relevant qualifications and passion for learning',
+                            posted_date: job.posted_date || new Date().toISOString().split('T')[0],
+                            category: mapJobToCategory(job.title, job.description)
+                        });
+                    }
+                    console.log('✅ Loaded', allJobs.length, 'jobs from database');
+                } else {
+                    throw new Error('Invalid response format');
+                }
+            } catch (error) {
+                console.warn('⚠️ Backend error, using demo data:', error.message);
+                loadDemoData();
+            }
+            renderStreams();
+        }
+
+        function mapJobToCategory(title, description) {
+            var text = ((title || '') + ' ' + (description || '')).toLowerCase();
+            if (text.indexOf('auto') !== -1 || text.indexOf('automotive') !== -1 || text.indexOf('vehicle') !== -1) return 'Automobile Engineering';
+            if (text.indexOf('civil') !== -1 || text.indexOf('construction') !== -1 || text.indexOf('site') !== -1) return 'Civil Engineering';
+            if (text.indexOf('software') !== -1 || text.indexOf('developer') !== -1 || text.indexOf('full-stack') !== -1) return 'Software Engineering';
+            if (text.indexOf('business') !== -1 || text.indexOf('management') !== -1 || text.indexOf('strategy') !== -1) return 'Business & Management';
+            if (text.indexOf('health') !== -1 || text.indexOf('clinical') !== -1) return 'Healthcare & Medicine';
+            if (text.indexOf('naval') !== -1 || text.indexOf('defence') !== -1) return 'Naval & Defence';
+            if (text.indexOf('aviation') !== -1 || text.indexOf('pilot') !== -1) return 'Aviation & Aerospace';
+            return 'Software Engineering';
+        }
+
+        function loadDemoData() {
+            allJobs = [{
+                id: 1,
+                title: 'Automotive Design Engineer Intern',
+                company: 'Toyota Lanka Ltd',
+                type: 'intern',
+                location: 'Colombo',
+                salary_range: 'Rs. 90,000/mo',
+                deadline: '2026-06-30',
+                description: 'Work on vehicle body design using CATIA V5 and SolidWorks.',
+                requirements: 'CATIA V5, SolidWorks, AutoCAD',
+                category: 'Automobile Engineering'
+            }, {
+                id: 2,
+                title: 'Full-Stack Developer Intern',
+                company: 'TechCorp Solutions',
+                type: 'intern',
+                location: 'Remote',
+                salary_range: 'Rs. 95,000/mo',
+                deadline: '2026-05-15',
+                description: 'Build scalable web applications using React, Node.js, and PostgreSQL.',
+                requirements: 'React, Node.js, PostgreSQL',
+                category: 'Software Engineering'
+            }, {
+                id: 3,
+                title: 'Business Strategy Intern',
+                company: 'ConsultPro Lanka',
+                type: 'intern',
+                location: 'Colombo',
+                salary_range: 'Rs. 85,000/mo',
+                deadline: '2026-05-20',
+                description: 'Support strategy consultants on client engagements.',
+                requirements: 'Excel, PowerPoint, Market Research',
+                category: 'Business & Management'
+            }];
+        }
+
+        function renderStreams() {
+            var container = document.getElementById('streamsGrid');
+            if (!container) return;
+
+            var streamsList = Object.keys(STREAM_CONFIG);
+            var html = '';
+
+            for (var i = 0; i < streamsList.length; i++) {
+                var cat = streamsList[i];
+                var jobCount = 0;
+                for (var j = 0; j < allJobs.length; j++) {
+                    if (allJobs[j].category === cat) jobCount++;
+                }
+                var config = STREAM_CONFIG[cat];
+
+                var hasImage = config.image && config.image.trim() !== '';
+                var bgStyle = hasImage ?
+                    'background-image: url(' + config.image + '); background-size: cover; background-position: center;' :
+                    'background: ' + config.gradient + ';';
+                var bgClass = hasImage ? 'stream-bg has-image' : 'stream-bg';
+
+                html += '<div class="stream-card ' + config.class + '" style="--card-accent:' + config.color + '" onclick="openStream(\'' + cat.replace(/'/g, "\\'") + '\')">';
+                html += '<div class="' + bgClass + '" style="' + bgStyle + '">';
+
+                if (!hasImage) {
+                    html += '<div class="stream-icon-bg">' + (config.icon || '💼') + '</div>';
+                }
+
+                html += '</div>';
+                html += '<div class="stream-overlay">';
+                html += '<div class="stream-name">' + cat + '</div>';
+                html += '<div class="stream-sub">Explore internships & full-time roles</div>';
+                html += '<div class="stream-footer">';
+                html += '<span class="job-count">📌 ' + jobCount + ' position' + (jobCount !== 1 ? 's' : '') + ' open</span>';
+                html += '<button class="btn-explore">Explore →</button>';
+                html += '</div></div></div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        function openStream(category) {
+            currentStreamKey = category;
+            var config = STREAM_CONFIG[category];
+            document.getElementById('modalTitle').innerText = category;
+            document.getElementById('modalSub').innerText = 'Available positions in ' + category;
+            document.getElementById('modalIcon').innerText = (config && config.icon) ? config.icon : '💼';
+            showJobs();
+            document.getElementById('modalOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showJobs() {
+            var jobs = [];
+            for (var i = 0; i < allJobs.length; i++) {
+                if (allJobs[i].category === currentStreamKey) jobs.push(allJobs[i]);
+            }
+
+            var config = STREAM_CONFIG[currentStreamKey];
+            var catColor = (config && config.color) ? config.color : '#F97316';
+
+            var listDiv = document.getElementById('jobsList');
+
+            if (jobs.length === 0) {
+                listDiv.innerHTML = '<div class="no-jobs">✨ No open positions at the moment. Check back soon!</div>';
+            } else {
+                var html = '';
+                for (var i = 0; i < jobs.length; i++) {
+                    var job = jobs[i];
+                    var skills = (job.requirements || '').split(',');
+                    var skillsHtml = '';
+                    for (var s = 0; s < skills.length; s++) {
+                        if (skills[s].trim()) {
+                            skillsHtml += '<span class="skill-tag">' + escapeHtml(skills[s].trim()) + '</span>';
+                        }
+                    }
+
+                    html += '<div class="job-item" style="--item-accent:' + catColor + '">';
+                    html += '<div class="job-item-top">';
+                    html += '<div><div class="job-title-main">' + escapeHtml(job.title) + '</div>';
+                    html += '<div class="company">🏢 ' + escapeHtml(job.company) + '</div></div>';
+                    html += '<div class="job-badge badge-' + job.type + '">' + getBadgeLabel(job.type) + '</div>';
+                    html += '</div>';
+                    html += '<div class="job-meta">';
+                    html += '<span>📍 ' + escapeHtml(job.location || 'Flexible') + '</span>';
+                    html += '<span>💰 ' + escapeHtml(job.salary_range) + '</span>';
+                    html += '<span>📅 ' + (job.deadline ? new Date(job.deadline).toLocaleDateString() : 'Open until filled') + '</span>';
+                    html += '</div>';
+                    html += '<div class="job-desc">' + escapeHtml(job.description || 'No description available') + '</div>';
+                    html += '<div class="job-skills">' + skillsHtml + '</div>';
+                    html += '<button class="btn-apply-job" style="background:rgba(' + hexToRgb(catColor) + ',0.15);border-color:' + catColor + ';color:' + catColor + '" onclick="openApplyForm(' + job.id + ')">Apply Now →</button>';
+                    html += '</div>';
+                }
+                listDiv.innerHTML = html;
+            }
+
+            document.getElementById('jobsView').style.display = 'block';
+            document.getElementById('formView').classList.remove('open');
+            document.getElementById('successView').classList.remove('open');
+        }
+
+        function openApplyForm(jobId) {
+            for (var i = 0; i < allJobs.length; i++) {
+                if (allJobs[i].id === jobId) {
+                    currentJob = allJobs[i];
+                    break;
+                }
+            }
+            if (!currentJob) return;
+
+            ['fFirst', 'fLast', 'fEmail', 'fPhone', 'fUserId', 'fDept', 'fCover'].forEach(function(id) {
+                document.getElementById(id).value = '';
+            });
+            document.getElementById('fUserId').readOnly = false;
+            document.getElementById('fEmail').readOnly = false;
+
+            var catColor = '#F97316';
+            var config = STREAM_CONFIG[currentJob.category];
+            if (config && config.color) catColor = config.color;
+
+            document.getElementById('applyingFor').innerHTML = '<span style="color:' + catColor + '">✏️ Applying for:</span> <strong>' + escapeHtml(currentJob.title) + '</strong> @ ' + escapeHtml(currentJob.company);
+            document.getElementById('jobsView').style.display = 'none';
+            document.getElementById('formView').classList.add('open');
+            document.getElementById('successView').classList.remove('open');
+            document.getElementById('modal').scrollTop = 0;
+        }
+
+        function submitApplication() {
+            var firstName = document.getElementById('fFirst').value.trim();
+            var lastName = document.getElementById('fLast').value.trim();
+            var email = document.getElementById('fEmail').value.trim();
+            var phone = document.getElementById('fPhone').value.trim();
+            var userId = document.getElementById('fUserId').value.trim();
+            var department = document.getElementById('fDept').value.trim();
+            var coverLetter = document.getElementById('fCover').value.trim();
+            var agree = document.getElementById('fAgree').checked;
+            var terms = document.getElementById('fTerms').checked;
+
+            if (!firstName || !lastName || !email || !phone || !userId || !department || !coverLetter) {
+                alert('⚠️ Please fill all required fields (*)');
+                return;
+            }
+            if (!agree || !terms) {
+                alert('⚠️ You must confirm accuracy and agree to terms.');
+                return;
+            }
+            if (!currentJob) {
+                alert('❌ Error: No job selected.');
+                return;
+            }
+
+            var payload = {
+                user_id: userId,
+                job_id: currentJob.id,
+                cover_letter: coverLetter,
+                resume_path: null
+            };
+
+            fetch(API_BASE + '/jobs/apply', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(result) {
+                    if (result.success) {
+                        showSuccessScreen(userId, currentJob.title);
+                    } else {
+                        alert('❌ ' + (result.message || 'Submission failed'));
+                    }
+                })
+                .catch(function(err) {
+                    alert('❌ Error: ' + err.message);
+                });
+        }
+
+        function showSuccessScreen(userId, jobTitle) {
+            var refCode = 'ORYN-' + (currentJob && currentJob.category ? currentJob.category.slice(0, 3).toUpperCase() : 'APP') + '-' + Date.now().toString().slice(-6);
+            document.getElementById('successDetails').innerHTML = `
+                <div class="success-row"><span>Reference ID</span><span style="color:#F97316">${refCode}</span></div>
+                <div class="success-row"><span>Applicant ID</span><span>${escapeHtml(userId)}</span></div>
+                <div class="success-row"><span>Position</span><span>${escapeHtml(jobTitle)}</span></div>
+                <div class="success-row"><span>Status</span><span style="color:#22C55E">✓ Submitted Successfully</span></div>
+            `;
+            document.getElementById('formView').classList.remove('open');
+            document.getElementById('successView').classList.add('open');
+            clearFormFields();
+            showToast('🎉 Application submitted successfully!');
+        }
+
+        function clearFormFields() {
+            ['fFirst', 'fLast', 'fEmail', 'fPhone', 'fUserId', 'fDept', 'fCover'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            document.getElementById('fAgree').checked = false;
+            document.getElementById('fTerms').checked = false;
+        }
+
+        function resetModal() {
+            showJobs();
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function closeIfOutside(event) {
+            if (event.target === document.getElementById('modalOverlay')) closeModal();
+        }
+
+        function showToast(msg) {
+            var t = document.createElement('div');
+            t.className = 'toast-msg';
+            t.innerText = msg;
+            document.body.appendChild(t);
+            setTimeout(function() {
+                t.remove();
+            }, 3000);
+        }
+
+        function getBadgeLabel(type) {
+            var map = {
+                intern: '🎓 Internship',
+                full: '✅ Full-Time',
+                part: '⏰ Part-Time',
+                research: '🔬 Research',
+                contract: '📋 Contract'
+            };
+            return map[type] || type;
+        }
+
+        function hexToRgb(hex) {
+            var r = parseInt(hex.slice(1, 3), 16);
+            var g = parseInt(hex.slice(3, 5), 16);
+            var b = parseInt(hex.slice(5, 7), 16);
+            return r + ',' + g + ',' + b;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        fetchJobsFromDB();
+    </script>
+</body>
+
+</html>
